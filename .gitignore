@@ -1,0 +1,21 @@
+*.stackdump
+*.clip
+.DS_Store
+.c9
+.nyc_output
+.project
+.settings
+Thumbs.db
+coverage
+runtime
+temp
+tmp
+
+# npm
+node_modules
+npm-debug.log
+
+# gradle
+build
+.gradle
+*local.properties
