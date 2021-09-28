@@ -20,6 +20,7 @@
 
 import chalk from 'chalk';
 import fs from 'fs-extra';
+import path from 'path';
 import isWindows from 'is-windows';
 import { spawnSync } from 'child_process';
 
@@ -65,11 +66,18 @@ const getGradleExecutable = () => {
   if (fs.existsSync('gradlew')) {
     return 'gradlew';
   }
-  if (process.env.GRADLE_HOME) {
-    return process.env.GRADLE_HOME;
-  }
-  if (process.env.GRADLE_HOME_TEST) {
-    return process.env.GRADLE_HOME_TEST;
+  if (process.env.GRADLE_HOME || process.env.GRADLE_HOME_TEST) {
+    const gradleHomePath =
+      process.env.GRADLE_HOME || process.env.GRADLE_HOME_TEST;
+    if (isWindows && fs.existsSync(path.join(gradleHomePath, 'gradlew.bat'))) {
+      return path.join(gradleHomePath, 'gradlew.bat');
+    }
+    if (fs.existsSync(path.join(gradleHomePath, 'gradlew'))) {
+      return path.join(gradleHomePath, 'gradlew');
+    }
+    if (fs.existsSync(path.join(gradleHomePath, 'gradle'))) {
+      return path.join(gradleHomePath, 'gradle');
+    }
   }
   const searchGradle = (spawnSync('which', ['gradle']).stderr || '').toString();
   if (searchGradle) {

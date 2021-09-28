@@ -19,7 +19,6 @@
  */
 
 import assert from 'assert';
-import isWindows from 'is-windows';
 import path from 'path';
 import { runTask } from '../../utils/gradle.js';
 
@@ -30,30 +29,21 @@ describe('utils/gradle', () => {
     it('should fail', () => {
       assert.equal(testFail, false);
     });
-    process.env['GRADLE_HOME_TEST'] = path.resolve(
-      'gradleWrapper',
-      isWindows ? 'gradlew.bat' : 'gradlew'
-    );
+    process.env['GRADLE_HOME_TEST'] = path.resolve('gradleWrapper');
     const testOk = runTask(undefined, path.resolve('gradleWrapper'));
     it('should be ok', () => {
       assert.ok(testOk);
     });
   });
   describe('runTask(task_name)', () => {
-    process.env['GRADLE_HOME_TEST'] = path.resolve(
-      'gradleWrapper',
-      isWindows ? 'gradlew.bat' : 'gradlew'
-    );
+    process.env['GRADLE_HOME_TEST'] = path.resolve('gradleWrapper');
     const testOk = runTask('--version');
     it('should be ok', () => {
       assert.ok(testOk);
     });
   });
   describe('runTask(task_name, workspace)', () => {
-    process.env['GRADLE_HOME_TEST'] = path.resolve(
-      'gradleWrapper',
-      isWindows ? 'gradlew.bat' : 'gradlew'
-    );
+    process.env['GRADLE_HOME_TEST'] = path.resolve('gradleWrapper');
     const testOk = runTask('--version', path.resolve('gradleWrapper'));
     it('should be ok', () => {
       assert.ok(testOk);
