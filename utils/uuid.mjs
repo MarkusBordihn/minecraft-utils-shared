@@ -1,5 +1,5 @@
 /**
- * @fileoverview Minecraft Utils Shared Test - Files
+ * @fileoverview Minecraft Utils Shared - UUID
  *
  * @license Copyright 2021 Markus Bordihn
  *
@@ -18,13 +18,18 @@
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
-import assert from 'assert';
-import files from '../../utils/files.mjs';
+import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
 
-describe('utils/files', () => {
-  describe('Object', () => {
-    it('should be ok', () => {
-      assert.equal(typeof files, 'object');
-    });
-  });
-});
+/**
+ * @param {String} name
+ * @param {String} namespace
+ * @return {String}
+ */
+const getUUID = (name, namespace = '9ef07506-dc88-45ca-b065-085ba8e79440') => {
+  if (name && namespace) {
+    return uuidv5(name, namespace);
+  }
+  return uuidv4();
+};
+
+export default { getUUID };

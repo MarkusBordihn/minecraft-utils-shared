@@ -1,5 +1,5 @@
 /**
- * @fileoverview Minecraft Utils Shared - UUID
+ * @fileoverview Minecraft Utils Shared - CommonJS version
  *
  * @license Copyright 2021 Markus Bordihn
  *
@@ -18,18 +18,8 @@
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
-import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
+const uuid = require('./dist/uuid.cjs');
+const files = require('./dist/files.cjs');
 
-/**
- * @param {String} name
- * @param {String} namespace
- * @return {String}
- */
-const getUUID = (name, namespace = '9ef07506-dc88-45ca-b065-085ba8e79440') => {
-  if (name && namespace) {
-    return uuidv5(name, namespace);
-  }
-  return uuidv4();
-};
-
-export { getUUID };
+exports.uuidUtils = uuid.default;
+exports.files = files.default;

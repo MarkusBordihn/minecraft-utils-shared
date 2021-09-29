@@ -1,9 +1,13 @@
 {
   "name": "minecraft-utils-shared",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Shared utils for Minecraft Bedrock / Forge development related utilities.",
   "preferGlobal": true,
-  "main": "index.js",
+  "main": "./index.cjs",
+  "exports": {
+    "import": "./index.mjs",
+    "require": "./index.cjs"
+  },
   "keywords": [
     "Minecraft",
     "Bedrock",
@@ -29,6 +33,13 @@
   },
   "engine-strict": true,
   "type": "module",
+  "files": [
+    "dist",
+    "index.cjs",
+    "index.mjs",
+    "LICENSE.md",
+    "README.md"
+  ],
   "dependencies": {
     "chalk": "^4.1.2",
     "compare-versions": "^3.6.0",
@@ -40,6 +51,10 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.15.4",
+    "@babel/preset-env": "^7.15.6",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "eslint": "^7.32.0",
@@ -52,6 +67,7 @@
     "typescript": "^4.4.3"
   },
   "scripts": {
+    "build": "babel --env-name commonjs utils/*.mjs --out-dir dist/ --out-file-extension .cjs --copy-files",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "mocha 'test/**/*_test.js' --recursive",

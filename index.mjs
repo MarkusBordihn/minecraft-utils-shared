@@ -1,5 +1,5 @@
 /**
- * @fileoverview Minecraft Utils Shared Test - Files
+ * @fileoverview Minecraft Utils Shared - Module version
  *
  * @license Copyright 2021 Markus Bordihn
  *
@@ -18,13 +18,10 @@
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
-import assert from 'assert';
-import files from '../../utils/files.mjs';
+import files from './utils/files.mjs';
+import uuid from './utils/uuid.mjs';
 
-describe('utils/files', () => {
-  describe('Object', () => {
-    it('should be ok', () => {
-      assert.equal(typeof files, 'object');
-    });
-  });
-});
+export default {
+  fileUtils: files,
+  uuidUtils: uuid,
+};

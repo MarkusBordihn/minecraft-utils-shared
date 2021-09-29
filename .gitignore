@@ -5,6 +5,7 @@
 .nyc_output
 .project
 .settings
+dist
 Thumbs.db
 coverage
 runtime

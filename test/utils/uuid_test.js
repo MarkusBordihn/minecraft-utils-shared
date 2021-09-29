@@ -19,12 +19,12 @@
  */
 
 import assert from 'assert';
-import { getUUID } from '../../utils/uuid.js';
+import uuid from '../../utils/uuid.mjs';
 
 describe('utils/uuid', () => {
   describe('getUUID() v4', () => {
-    const firstUUID = getUUID();
-    const secondUUID = getUUID();
+    const firstUUID = uuid.getUUID();
+    const secondUUID = uuid.getUUID();
     it('should not be empty', () => {
       assert(firstUUID);
       assert(secondUUID);
@@ -34,9 +34,9 @@ describe('utils/uuid', () => {
     });
   });
   describe('getUUID(name) v5', () => {
-    const firstUUID = getUUID('test');
-    const secondUUID = getUUID('test');
-    const thirdUUID = getUUID('test2');
+    const firstUUID = uuid.getUUID('test');
+    const secondUUID = uuid.getUUID('test');
+    const thirdUUID = uuid.getUUID('test2');
     it('should not be empty', () => {
       assert(firstUUID);
       assert(secondUUID);
