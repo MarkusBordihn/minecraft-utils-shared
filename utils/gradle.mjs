@@ -75,8 +75,8 @@ const getGradleExecutable = () => {
     if (fs.existsSync(path.join(gradleHomePath, 'gradlew'))) {
       return path.join(gradleHomePath, 'gradlew');
     }
-    if (fs.existsSync(path.join(gradleHomePath, 'gradle'))) {
-      return path.join(gradleHomePath, 'gradle');
+    if (fs.existsSync(path.join(gradleHomePath, 'bin', 'gradle'))) {
+      return path.join(gradleHomePath, 'bin', 'gradle');
     }
   }
   const searchGradle = (spawnSync('which', ['gradle']).stderr || '').toString();
