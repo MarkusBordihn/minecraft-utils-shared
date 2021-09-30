@@ -29,7 +29,7 @@ describe('utils/default_path', () => {
   });
   describe('workingPath', () => {
     it('should be equal with process.cwd()', () => {
-      assert.equal(defaultPath.workingPath, process.cwd());
+      assert.equal(defaultPath.project.path, process.cwd());
     });
   });
 });
