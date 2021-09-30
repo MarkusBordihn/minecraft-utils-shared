@@ -42,10 +42,10 @@
   "overrides": [    {
     "files": ["**/*_test.js"],
     "env": {
-      "browser": true,
+      "browser": false,
       "node": true,
       "es2020": true,
-      "jasmine": true
+      "mocha": true
     }
   }]
 }

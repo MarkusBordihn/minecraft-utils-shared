@@ -23,6 +23,8 @@ import path from 'path';
 import { runTask } from '../../utils/gradle.mjs';
 
 describe('utils/gradle', () => {
+  const ENV_BAK = process.env;
+
   describe('runTask()', () => {
     process.env['GRADLE_HOME_TEST'] = '';
     const testFail = runTask(undefined, path.resolve('gradleWrapper'));
@@ -48,5 +50,9 @@ describe('utils/gradle', () => {
     it('should be ok', () => {
       assert.ok(testOk);
     });
+  });
+
+  after(() => {
+    process.env = ENV_BAK;
   });
 });

@@ -24,8 +24,8 @@ import glob from 'glob';
 import path from 'path';
 
 /**
- * @param {String} source
- * @param {String} target
+ * @param {string} source
+ * @param {string} target
  */
 const copyFileIfNotExists = (source, target) => {
   if (fs.existsSync(source) && !fs.existsSync(target)) {
@@ -34,8 +34,8 @@ const copyFileIfNotExists = (source, target) => {
 };
 
 /**
- * @param {String} source
- * @param {String} target
+ * @param {string} source
+ * @param {string} target
  */
 const copyFolderIfNotExists = (source, target) => {
   if (fs.existsSync(source) && !fs.existsSync(target)) {
@@ -44,8 +44,8 @@ const copyFolderIfNotExists = (source, target) => {
 };
 
 /**
- * @param {String} source
- * @param {String} target
+ * @param {string} source
+ * @param {string} target
  */
 const createBackupFile = (source, target) => {
   if (fs.existsSync(source)) {
@@ -58,9 +58,9 @@ const createBackupFile = (source, target) => {
 };
 
 /**
- * @param {String} folderPath
- * @param {String} name
- * @param {String} content
+ * @param {string} folderPath
+ * @param {string} name
+ * @param {string} content
  */
 const createFileIfNotExists = (folderPath, name, content = '') => {
   const pathName = name ? path.join(folderPath, name) : folderPath;
@@ -76,8 +76,8 @@ const createFileIfNotExists = (folderPath, name, content = '') => {
 };
 
 /**
- * @param {String} folderPath
- * @param {String} name
+ * @param {string} folderPath
+ * @param {string} name
  */
 const createFolderIfNotExists = (folderPath, name) => {
   const pathName = name ? path.join(folderPath, name) : folderPath;
@@ -93,6 +93,17 @@ const createFolderIfNotExists = (folderPath, name) => {
 };
 
 /**
+ * @param {string} name
+ * @return {String}
+ */
+const normalizeFileName = (name = '') => {
+  return name
+    .replace(/\s+/g, '_')
+    .replace(':', '__')
+    .replace(/[^a-zA-Z0-9_.-]/g, '');
+};
+
+/**
  * @param {string} oldPath
  * @param {string} newPath
  * @param {boolean} overwrite
@@ -104,9 +115,9 @@ const renameFileIfExists = (oldPath, newPath, overwrite = false) => {
 };
 
 /**
- * @param {String} pattern
- * @param {String} from
- * @param {String} to
+ * @param {string} pattern
+ * @param {string} from
+ * @param {string} to
  * @return {Array}
  */
 const replaceInFiles = (pattern, from, to) => {
@@ -140,6 +151,21 @@ const replaceInFiles = (pattern, from, to) => {
 };
 
 /**
+ * @param {string} filePath
+ * @param {string} file
+ * @return {string}
+ */
+const returnIfFileExists = (filePath, file) => {
+  if (file) {
+    if (!filePath) {
+      return '';
+    }
+    filePath = path.join(filePath, file);
+  }
+  return fs.existsSync(filePath) ? filePath : '';
+};
+
+/**
  * @param {string} pattern
  * @param {string} name
  * @param {string} to
@@ -154,7 +180,9 @@ export default {
   createBackupFile,
   createFileIfNotExists,
   createFolderIfNotExists,
+  normalizeFileName,
   renameFileIfExists,
   replaceInFiles,
+  returnIfFileExists,
   setPlaceholder,
 };

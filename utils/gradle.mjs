@@ -25,8 +25,8 @@ import isWindows from 'is-windows';
 import { spawnSync } from 'child_process';
 
 /**
- * @param {String} taskName
- * @param {String} projectPath
+ * @param {string} taskName
+ * @param {string} projectPath
  * @return {Boolean}
  */
 const runTask = (taskName = '', projectPath = '') => {
@@ -66,9 +66,9 @@ const getGradleExecutable = () => {
   if (fs.existsSync('gradlew')) {
     return 'gradlew';
   }
-  if (process.env.GRADLE_HOME || process.env.GRADLE_HOME_TEST) {
+  if (process.env.GRADLE_HOME_TEST || process.env.GRADLE_HOME) {
     const gradleHomePath =
-      process.env.GRADLE_HOME || process.env.GRADLE_HOME_TEST;
+      process.env.GRADLE_HOME_TEST || process.env.GRADLE_HOME;
     if (isWindows && fs.existsSync(path.join(gradleHomePath, 'gradlew.bat'))) {
       return path.join(gradleHomePath, 'gradlew.bat');
     }

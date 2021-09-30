@@ -18,10 +18,16 @@
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
+import defaultPath from './utils/default_path.mjs';
 import files from './utils/files.mjs';
+import manifest from './utils/manifest.mjs';
+import translation from './utils/translation.mjs';
 import uuid from './utils/uuid.mjs';
 
 export default {
+  defaultPath: defaultPath,
   fileUtils: files,
+  manifestUtils: manifest,
+  translationUtils: translation,
   uuidUtils: uuid,
 };

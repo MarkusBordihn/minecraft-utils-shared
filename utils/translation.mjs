@@ -1,5 +1,5 @@
 /**
- * @fileoverview Minecraft Utils Shared - UUID
+ * @fileoverview Minecraft Utils Shared - Translation
  *
  * @license Copyright 2021 Markus Bordihn
  *
@@ -18,18 +18,29 @@
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
-import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
-
 /**
- * @param {string} name
- * @param {string} namespace
  * @return {String}
  */
-const getUUID = (name, namespace = '9ef07506-dc88-45ca-b065-085ba8e79440') => {
-  if (name && namespace) {
-    return uuidv5(name, namespace);
+const getLanguage = () => {
+  const detectedLanguage =
+    (process.env.LC_ALL && process.env.LC_ALL.length > 1
+      ? process.env.LC_ALL
+      : '') ||
+    process.env.LC_MESSAGES ||
+    process.env.LANG ||
+    process.env.LANGUAGE ||
+    (Intl
+      ? // eslint-disable-next-line new-cap
+        Intl.DateTimeFormat().resolvedOptions().locale
+      : '') ||
+    '';
+  if (!detectedLanguage) {
+    console.warn('Unable to detect language for current environment!');
   }
-  return uuidv4();
+  return detectedLanguage;
 };
 
-export default { getUUID };
+/* Static reference */
+const language = getLanguage();
+
+export default { language, getLanguage };

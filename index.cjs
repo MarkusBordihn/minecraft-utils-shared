@@ -18,8 +18,14 @@
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
-const uuid = require('./dist/uuid.cjs');
+const defaultPath = require('./dist/default_path.cjs');
 const files = require('./dist/files.cjs');
+const manifest = require('./dist/manifest.cjs');
+const translation = require('./dist/translation.cjs');
+const uuid = require('./dist/uuid.cjs');
 
+exports.defaultPath = defaultPath.default;
+exports.fileUtils = files.default;
+exports.manifestUtils = manifest.default;
+exports.translationUtils = translation.default;
 exports.uuidUtils = uuid.default;
-exports.files = files.default;

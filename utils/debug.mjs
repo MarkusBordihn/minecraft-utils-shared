@@ -1,5 +1,5 @@
 /**
- * @fileoverview Minecraft Utils Shared - UUID
+ * @fileoverview Minecraft Utils Shared - Debug
  *
  * @license Copyright 2021 Markus Bordihn
  *
@@ -18,18 +18,16 @@
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
-import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
+import translationUtils from './translation.mjs';
+import defaultPath from './default_path.mjs';
 
-/**
- * @param {string} name
- * @param {string} namespace
- * @return {String}
- */
-const getUUID = (name, namespace = '9ef07506-dc88-45ca-b065-085ba8e79440') => {
-  if (name && namespace) {
-    return uuidv5(name, namespace);
-  }
-  return uuidv4();
+const args = process.argv.slice(2);
+
+const debug = () => {
+  console.log('minecraft-utils-shared:', args, '\n');
+  console.log('Detected Language:', translationUtils.language);
+  console.log('Detected paths:', defaultPath);
+  console.log('Process Env:', process.env);
 };
 
-export default { getUUID };
+debug();

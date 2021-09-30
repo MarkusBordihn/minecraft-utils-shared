@@ -1,5 +1,5 @@
 /**
- * @fileoverview Minecraft Utils Shared - UUID
+ * @fileoverview Minecraft Utils Shared Test - Default Path
  *
  * @license Copyright 2021 Markus Bordihn
  *
@@ -18,18 +18,18 @@
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
-import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
+import assert from 'assert';
+import defaultPath from '../../utils/default_path.mjs';
 
-/**
- * @param {string} name
- * @param {string} namespace
- * @return {String}
- */
-const getUUID = (name, namespace = '9ef07506-dc88-45ca-b065-085ba8e79440') => {
-  if (name && namespace) {
-    return uuidv5(name, namespace);
-  }
-  return uuidv4();
-};
-
-export default { getUUID };
+describe('utils/default_path', () => {
+  describe('Object', () => {
+    it('should be ok', () => {
+      assert.equal(typeof defaultPath, 'object');
+    });
+  });
+  describe('workingPath', () => {
+    it('should be equal with process.cwd()', () => {
+      assert.equal(defaultPath.workingPath, process.cwd());
+    });
+  });
+});
