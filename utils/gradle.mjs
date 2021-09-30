@@ -22,6 +22,9 @@ const runTask = (taskName = '', projectPath = '') => {
   if (!gradleApp) {
     return false;
   }
+  if (!isWindows && gradleApp.endsWith('gradlew')) {
+    fs.chmodSync(gradleApp, 0o755);
+  }
   if (taskName) {
     console.log(
       chalk.green(
