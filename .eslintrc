@@ -5,12 +5,14 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "plugin:compat/recommended"
+    "plugin:compat/recommended",
+    "plugin:jsdoc/recommended"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint/eslint-plugin"],
+  "plugins": ["@typescript-eslint/eslint-plugin", "jsdoc"],
   "parserOptions": {
-    "ecmaVersion": 2020
+    "ecmaVersion": 2020,
+    "sourceType": "module"
   },
   "rules": {
     "no-unused-vars": [
@@ -30,7 +32,10 @@
       }
     ],
     "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "valid-jsdoc": 0,
+    "jsdoc/require-param-description": 0,
+    "jsdoc/require-returns-description": 0
   },
   "env": {
     "browser": false,
@@ -39,13 +44,15 @@
   },
   "globals": {},
   "settings": {},
-  "overrides": [    {
-    "files": ["**/*_test.js"],
-    "env": {
-      "browser": false,
-      "node": true,
-      "es2020": true,
-      "mocha": true
+  "overrides": [
+    {
+      "files": ["**/*_test.js"],
+      "env": {
+        "browser": false,
+        "node": true,
+        "es2020": true,
+        "mocha": true
+      }
     }
-  }]
+  ]
 }

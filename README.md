@@ -11,8 +11,8 @@ Please take a look at [minecraft-bedrock-utils][minecraft-bedrock-utils] and/or
 
 ## Development
 
-This project has a dual setup with CommonJS (.cjs) and ES Modules (.mjs). Do
-update both definition please run `npm run build` which will create the
+This project has a dual setup with CommonJS (.cjs) and ES Modules (.mjs).
+To update both definition please run `npm run build` which will create the
 corresponding (.cjs) files in the /dist folder.
 
 ## Disclaimer

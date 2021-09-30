@@ -1,20 +1,6 @@
 /**
- * @fileoverview Minecraft Utils Shared - Files
- *
- * @license Copyright 2021 Markus Bordihn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * @file Minecraft Utils Shared - Files
+ * @license Apache-2.0
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
@@ -94,7 +80,7 @@ const createFolderIfNotExists = (folderPath, name) => {
 
 /**
  * @param {string} name
- * @return {String}
+ * @returns {string}
  */
 const normalizeFileName = (name = '') => {
   return name
@@ -118,7 +104,7 @@ const renameFileIfExists = (oldPath, newPath, overwrite = false) => {
  * @param {string} pattern
  * @param {string} from
  * @param {string} to
- * @return {Array}
+ * @returns {Array<string>}
  */
 const replaceInFiles = (pattern, from, to) => {
   const relevantFiles = [];
@@ -153,7 +139,7 @@ const replaceInFiles = (pattern, from, to) => {
 /**
  * @param {string} filePath
  * @param {string} file
- * @return {string}
+ * @returns {string}
  */
 const returnIfFileExists = (filePath, file) => {
   if (file) {

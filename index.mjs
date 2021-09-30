@@ -1,33 +1,21 @@
 /**
- * @fileoverview Minecraft Utils Shared - Module version
- *
- * @license Copyright 2021 Markus Bordihn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * @file Minecraft Utils Shared - Module version
+ * @license Apache-2.0
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
 import defaultPath from './utils/default_path.mjs';
+import fileFinder from './utils/file_finder.mjs';
 import files from './utils/files.mjs';
-import manifest from './utils/manifest.mjs';
+import init from './utils/init.mjs';
 import translation from './utils/translation.mjs';
 import uuid from './utils/uuid.mjs';
 
 export default {
   defaultPath: defaultPath,
+  fileFinderUtils: fileFinder,
   fileUtils: files,
-  manifestUtils: manifest,
+  initUtils: init,
   translationUtils: translation,
   uuidUtils: uuid,
 };
