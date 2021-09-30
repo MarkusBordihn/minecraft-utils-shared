@@ -23,6 +23,7 @@
         "mojang",
         "mynamespace",
         "nodir",
+        "prebuild",
         "universalify",
         "uuidv",
         "vendorname",

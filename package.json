@@ -1,6 +1,6 @@
 {
   "name": "minecraft-utils-shared",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Shared utils for Minecraft Bedrock / Forge development related utilities.",
   "preferGlobal": true,
   "main": "./index.cjs",
@@ -78,8 +78,9 @@
   },
   "scripts": {
     "prebuild": "rimraf dist/*",
-    "build": "npm run build:formats && npm run build:utils",
+    "build": "npm run build:formats && npm run build:helper && npm run build:utils",
     "build:formats": "babel --env-name commonjs formats/*.mjs --out-dir dist/formats --out-file-extension .cjs --copy-files",
+    "build:helper": "babel --env-name commonjs helper/*.mjs --out-dir dist/helper --out-file-extension .cjs --copy-files",
     "build:utils": "babel --env-name commonjs utils/*.mjs --out-dir dist/utils --out-file-extension .cjs --copy-files",
     "debug": "node utils/debug.mjs",
     "lint": "eslint .",

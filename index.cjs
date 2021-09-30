@@ -5,6 +5,7 @@
  */
 
 const defaultPath = require('./dist/utils/default_path.cjs');
+const enquirer = require('./dist/helper/enquirer.cjs');
 const fileFinder = require('./dist/utils/file_finder.cjs');
 const files = require('./dist/utils/files.cjs');
 const init = require('./dist/utils/init.cjs');
@@ -12,7 +13,8 @@ const translation = require('./dist/utils/translation.cjs');
 const uuid = require('./dist/utils/uuid.cjs');
 
 exports.defaultPath = defaultPath.default;
-exports.fileFinderUtilsUtils = fileFinder.default;
+exports.enquirerHelper = enquirer.default;
+exports.fileFinderUtils = fileFinder.default;
 exports.fileUtils = files.default;
 exports.initUtils = init.default;
 exports.translationUtils = translation.default;

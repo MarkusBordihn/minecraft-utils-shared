@@ -11,18 +11,7 @@ import { runTask } from '../../utils/gradle.mjs';
 describe('utils/gradle', () => {
   const ENV_BAK = process.env;
 
-  before(() => {
-    process.env['GRADLE_HOME'] = '';
-    process.env['GRADLE_HOME_TEST'] = '';
-  });
-
   describe('runTask()', () => {
-    process.env['GRADLE_HOME_TEST'] = '';
-    const testFail = runTask(undefined, path.resolve('gradleWrapper'));
-    it('should fail', () => {
-      assert.equal(testFail, false);
-    });
-    process.env['GRADLE_HOME_TEST'] = path.resolve('gradleWrapper');
     const testOk = runTask(undefined, path.resolve('gradleWrapper'));
     it('should be ok', () => {
       assert.ok(testOk);

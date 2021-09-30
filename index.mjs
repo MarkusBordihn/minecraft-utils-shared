@@ -5,6 +5,7 @@
  */
 
 import defaultPath from './utils/default_path.mjs';
+import enquirer from './helper/enquirer.mjs';
 import fileFinder from './utils/file_finder.mjs';
 import files from './utils/files.mjs';
 import init from './utils/init.mjs';
@@ -13,6 +14,7 @@ import uuid from './utils/uuid.mjs';
 
 export default {
   defaultPath: defaultPath,
+  enquirerHelper: enquirer,
   fileFinderUtils: fileFinder,
   fileUtils: files,
   initUtils: init,
