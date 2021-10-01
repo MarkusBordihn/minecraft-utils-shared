@@ -12,6 +12,7 @@ describe('utils/gradle', () => {
   const ENV_BAK = process.env;
 
   describe('runTask()', () => {
+    process.env['GRADLE_HOME_TEST'] = path.resolve('gradleWrapper');
     const testOk = runTask(undefined, path.resolve('gradleWrapper'));
     it('should be ok', () => {
       assert.ok(testOk);

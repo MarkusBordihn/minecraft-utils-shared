@@ -1,6 +1,6 @@
 {
   "name": "minecraft-utils-shared",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Shared utils for Minecraft Bedrock / Forge development related utilities.",
   "preferGlobal": true,
   "main": "./index.cjs",
@@ -36,9 +36,11 @@
   "files": [
     "assets/init/.gitattributes",
     "assets/init/.gitignore",
+    "assets/items/",
     "assets/logos/behavior_pack.png",
     "assets/logos/mod_pack.png",
     "assets/logos/resource_pack.png",
+    "assets/models/",
     "dist",
     "formats",
     "utils",

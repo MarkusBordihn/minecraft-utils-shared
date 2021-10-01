@@ -54,6 +54,7 @@ export default {
     base: assetsPath,
     init: path.join(assetsPath, 'init'),
     items: path.join(assetsPath, 'items'),
+    logos: path.join(assetsPath, 'logos'),
     misc: path.join(assetsPath, 'misc'),
     models: path.join(assetsPath, 'models'),
   },
