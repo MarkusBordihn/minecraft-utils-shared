@@ -5,6 +5,7 @@
  */
 
 import assert from 'assert';
+
 import uuid from '../../utils/uuid.mjs';
 
 describe('utils/uuid', () => {

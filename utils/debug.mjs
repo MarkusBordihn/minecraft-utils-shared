@@ -14,6 +14,7 @@ const debug = () => {
   console.log('Detected Language:', translationUtils.language);
   console.log('Detected paths:', defaultPath);
   console.log('Process Env:', process.env);
+  console.log('Version', process.env.npm_package_version);
 };
 
 debug();

@@ -5,23 +5,25 @@
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
-import { fileURLToPath, URL } from 'url';
 import os from 'os';
 import path from 'path';
+import { fileURLToPath, URL } from 'url';
 
+import configuration from './configuration.mjs';
 import fileUtils from './files.mjs';
 import fileFinderUtils from './file_finder.mjs';
 
 // General path
-const configPath = path.join(
-  process.cwd(),
-  `.${process.env.npm_package_name || 'minecraft-utils-shared'}`
-);
+const configPath = configuration.configPath;
 const modulePath = fileURLToPath(new URL('..', import.meta.url));
 const projectPath = process.cwd();
 
 // Assets path
-const assetsPath = path.join(modulePath, 'assets');
+const assetsPath =
+  modulePath.endsWith(`${path.sep}dist`) ||
+  modulePath.endsWith(`${path.sep}dist${path.sep}`)
+    ? path.join(modulePath, '..', 'assets')
+    : path.join(modulePath, 'assets');
 
 // Manifest files
 const manifests = fileFinderUtils.getManifestsInWorkingPath();

@@ -4,8 +4,9 @@
  */
 
 import assert from 'assert';
-import manifest from '../../utils/file_finder.mjs';
 import path from 'path';
+
+import manifest from '../../utils/file_finder.mjs';
 
 describe('utils/manifest', () => {
   describe('Object', () => {

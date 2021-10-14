@@ -9,7 +9,7 @@ import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
 /**
  * @param {string} name
  * @param {string} namespace
- * @return {String}
+ * @returns {string}
  */
 const getUUID = (name, namespace = '9ef07506-dc88-45ca-b065-085ba8e79440') => {
   if (name && namespace) {

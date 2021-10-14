@@ -5,6 +5,7 @@
  */
 
 import assert from 'assert';
+
 import files from '../../utils/files.mjs';
 
 describe('utils/files', () => {

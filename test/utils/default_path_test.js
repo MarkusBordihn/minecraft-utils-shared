@@ -5,6 +5,7 @@
  */
 
 import assert from 'assert';
+
 import defaultPath from '../../utils/default_path.mjs';
 
 describe('utils/default_path', () => {

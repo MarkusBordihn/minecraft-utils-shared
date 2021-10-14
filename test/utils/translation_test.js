@@ -5,6 +5,7 @@
  */
 
 import assert from 'assert';
+
 import translation from '../../utils/translation.mjs';
 
 describe('utils/translation', () => {

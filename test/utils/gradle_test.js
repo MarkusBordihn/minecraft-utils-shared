@@ -6,6 +6,7 @@
 
 import assert from 'assert';
 import path from 'path';
+
 import { runTask } from '../../utils/gradle.mjs';
 
 describe('utils/gradle', () => {
