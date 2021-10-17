@@ -18,11 +18,13 @@ const getItemConfig = (itemOptions = {}) => {
     'minecraft:item': {
       description: {
         identifier: options.id,
+        category: options.category || itemConfig.category.ITEM,
       },
       components: {},
     },
   };
 
+  // Adding meta data for format version >= 1.16.100
   if (
     compareVersions.compare(options.bedrock.formatVersion, '1.16.100', '>=')
   ) {
@@ -32,22 +34,25 @@ const getItemConfig = (itemOptions = {}) => {
     };
 
     // Handles general options
-    if (options.render_offsets) {
+    if (options.renderOffsets) {
       result['minecraft:item'].components['minecraft:render_offsets'] = {
         main_hand: [0, 0, 0],
         off_hand: [0, 0, 0],
       };
     }
-    if (options.use_animation) {
+    if (options.useAnimation) {
       result['minecraft:item'].components['minecraft:use_animation'] =
         options.use_animation;
     }
   }
 
-  // Handle behavior specific options
-  handleGeneralOptions(result, options);
-
-  // Handle item type specific options
+  // Handle general options
+  if (options.attributes) {
+    handleGeneralOptions(result, options);
+  }
+ 
+  // Handle item type specific component options
+  console.log('Item generator:', options);
   if (options.armor) {
     handleArmorType(result, options);
   }
@@ -78,9 +83,9 @@ const getItemConfig = (itemOptions = {}) => {
  * @param {Object} options
  */
 const handleGeneralOptions = (result, options) => {
-  if (options.attributes.use_duration) {
+  if (options.attributes.useDuration) {
     result['minecraft:item'].components['minecraft:use_duration'] = parseInt(
-      options.attributes.use_duration
+      options.attributes.useDuration
     );
   }
   if (options.attributes.damage) {
@@ -92,17 +97,17 @@ const handleGeneralOptions = (result, options) => {
     result['minecraft:item'].components['minecraft:foil'] =
       options.attributes.foil || false;
   }
-  if (options.hand_equipped) {
+  if (options.attributes.handEquipped) {
     result['minecraft:item'].components['minecraft:hand_equipped'] = true;
   }
-  if (options.attributes.max_stack_size) {
+  if (options.attributes.maxStackSize) {
     result['minecraft:item'].components['minecraft:max_stack_size'] = parseInt(
-      options.attributes.max_stack_size
+      options.attributes.maxStackSize
     );
   }
-  if (options.attributes.render_offset) {
+  if (options.attributes.renderOffset) {
     result['minecraft:item'].components['minecraft:render_offsets'] =
-      options.attributes.render_offset;
+      options.attributes.renderOffset;
   }
 };
 
@@ -112,11 +117,11 @@ const handleGeneralOptions = (result, options) => {
  */
 const handleArmorType = (result, options) => {
   result['minecraft:item'].components['minecraft:armor'] = {
-    protection: parseInt(options.protection),
+    protection: parseInt(options.armor.protection),
   };
-  if (options.texture_type) {
+  if (options.armor.textureType) {
     result['minecraft:item'].components['minecraft:armor'].texture_type =
-      options.texture_type;
+      options.armor.textureType;
   }
 
   switch (options.variation) {

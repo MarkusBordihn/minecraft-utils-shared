@@ -29,8 +29,8 @@ exports.enquirerHelper = enquirer.default;
 exports.fileFinderUtils = fileFinder.default;
 exports.fileUtils = files.default;
 exports.generators = {
-  item: itemConfigGenerator,
-  resource: resourceConfigGenerator,
+  item: itemConfigGenerator.default,
+  resource: resourceConfigGenerator.default,
 };
 exports.initUtils = init.default;
 exports.normalizeHelper = normalizer.default;

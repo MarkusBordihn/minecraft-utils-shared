@@ -17,7 +17,7 @@ import fileUtils from './files.mjs';
  * @param {string} targetPath (optional)
  * @returns {boolean}
  */
-const createWorkspace = (npmPackage, targetPath = defaultPath.projectPath) => {
+const createWorkspace = (npmPackage, targetPath = defaultPath.project.path) => {
   if (!targetPath) {
     console.log(chalk.red('Invalid target path for creating workspace!'));
     return false;
@@ -79,7 +79,7 @@ const createWorkspace = (npmPackage, targetPath = defaultPath.projectPath) => {
   );
 
   if (npmPackage) {
-    if (targetPath != defaultPath.projectPath) {
+    if (targetPath != defaultPath.project.path) {
       console.info(
         `\nUse "${chalk.green(
           'npx ' + npmPackage + ' new'

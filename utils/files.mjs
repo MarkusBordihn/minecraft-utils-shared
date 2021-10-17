@@ -15,6 +15,10 @@ import path from 'path';
  */
 const copyFileIfNotExists = (source, target) => {
   if (fs.existsSync(source) && !fs.existsSync(target)) {
+    let parentDir = path.dirname(target);
+    if (parentDir && !fs.existsSync(parentDir)) {
+      fs.ensureDirSync(parentDir);
+    }
     fs.copyFileSync(source, target);
   }
 };

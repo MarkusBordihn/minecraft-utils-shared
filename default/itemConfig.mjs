@@ -57,10 +57,12 @@ typeIcon[type.WEARABLE] = '👖';
  */
 const category = Object.freeze({
   EQUIPMENT: 'equipment',
+  ITEMS: 'items',
+  NATURE: 'nature',
 });
 
 const config = {
-  component: component.type.PROJECT,
+  component: component.type.ITEM,
   configVersion: configVersion,
   id: '',
   itemName: '',
@@ -101,29 +103,29 @@ const normalize = (options, name, itemType, variation) => {
 
   // Handle specific options.
   for (const [key, value] of Object.entries(options)) {
-    const identifier = key.split('.')[0];
-    const searchIdentifier = identifier + '.';
+    const identifier = key.includes('.') ? key.split('.')[0] + '.' : '';
+    const identifierKey = identifier ? identifier.split('.')[0] : '';
     switch (identifier) {
-      case 'armor':
-      case 'attributes':
-      case 'bedrock':
-      case 'digger':
-      case 'food':
-      case 'forge':
-      case 'fuel':
-      case 'misc':
-      case 'renderOffset':
-      case 'textures':
-      case 'throwable':
-      case 'weapon':
-      case 'wearable':
-        if (key.startsWith(searchIdentifier)) {
-          if (!normalizedOptions[identifier]) {
-            normalizedOptions[identifier] = {};
+      case 'armor.':
+      case 'attachable.':
+      case 'attributes.':
+      case 'bedrock.':
+      case 'digger.':
+      case 'food.':
+      case 'forge.':
+      case 'fuel.':
+      case 'misc.':
+      case 'renderOffset.':
+      case 'textures.':
+      case 'throwable.':
+      case 'weapon.':
+      case 'wearable.':
+        if (key.startsWith(identifier)) {
+          if (!normalizedOptions[identifierKey]) {
+            normalizedOptions[identifierKey] = {};
           }
-          normalizedOptions[identifier][
-            key.substring(searchIdentifier.length)
-          ] = value;
+          normalizedOptions[identifierKey][key.substring(identifier.length)] =
+            value;
         }
         break;
       default:
@@ -155,6 +157,9 @@ const normalize = (options, name, itemType, variation) => {
       normalizedOptions.namespace
     );
   }
+  if (!options.icon) {
+    normalizedOptions.icon = normalizedOptions.itemName;
+  }
   if (!options.category) {
     switch (normalizedOptions.type) {
       case type.ARMOR:
@@ -162,15 +167,15 @@ const normalize = (options, name, itemType, variation) => {
       case type.THROWABLE:
       case type.WEAPON:
       case type.WEARABLE:
-        normalizedOptions.category = 'equipment';
+        normalizedOptions.category = category.EQUIPMENT;
         break;
       case type.FOOD:
-        normalizedOptions.category = 'nature';
+        normalizedOptions.category = category.NATURE;
         break;
       case type.CUSTOM:
       case type.FUEL:
       default:
-        normalizedOptions.category = 'items';
+        normalizedOptions.category = category.ITEMS;
     }
   }
 

@@ -37,7 +37,8 @@ const handleItemOptions = (result, options) => {
   };
 
   if (compareVersions.compare(options.bedrock.formatVersion, '1.16.100', '<')) {
-    result['minecraft:item'].components['minecraft:icon'] = options.itemName;
+    result['minecraft:item'].components['minecraft:icon'] =
+      options.icon || options.itemName;
     result['minecraft:item'].components['minecraft:display_name'] = {
       value: `item.${options.id}.name`,
     };
@@ -50,6 +51,8 @@ const handleItemOptions = (result, options) => {
         options.use_animation;
     }
   }
+
+  // Attachables ?
 };
 
 export default {
