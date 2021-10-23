@@ -26,6 +26,7 @@ const type = Object.freeze({
   HELMET: 'helmet',
   LEGGINGS: 'leggings',
   PROJECTILE: 'projectile',
+  TEST: 'test',
   THROWABLE: 'throwable',
   WEAPON: 'weapon',
   WEARABLE: 'wearable',
@@ -48,6 +49,7 @@ typeIcon[type.FUEL] = '🛢️';
 typeIcon[type.HELMET] = '⛑';
 typeIcon[type.LEGGINGS] = '👖';
 typeIcon[type.PROJECTILE] = '🏹';
+typeIcon[type.TEST] = '🧪';
 typeIcon[type.THROWABLE] = '❄️';
 typeIcon[type.WEAPON] = '⚔️';
 typeIcon[type.WEARABLE] = '👖';
@@ -59,13 +61,14 @@ const category = Object.freeze({
   EQUIPMENT: 'equipment',
   ITEMS: 'items',
   NATURE: 'nature',
+  TEST: 'test',
 });
 
 const config = {
   component: component.type.ITEM,
   configVersion: configVersion,
-  id: '',
-  itemName: '',
+  id: 'my_item:new_custom_item',
+  itemName: 'new_custom_item',
   type: type.CUSTOM,
   name: 'New custom item',
   namespace: process.env.npm_package_config_project_namespace || 'my_item',
@@ -74,8 +77,8 @@ const config = {
   },
   description: '',
   variation: '',
-  icon: '',
-  category: '',
+  icon: 'new_custom_item',
+  category: category.ITEMS,
   attributes: {
     foil: false,
   },

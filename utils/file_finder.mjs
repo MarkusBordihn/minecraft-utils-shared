@@ -8,7 +8,7 @@ import fs from 'fs';
 import glob from 'glob';
 import path from 'path';
 
-import jsonFile from '../formats/JSONFile.mjs';
+import jsonFile from '../formats/json_file.mjs';
 
 const workingPath = process.cwd();
 

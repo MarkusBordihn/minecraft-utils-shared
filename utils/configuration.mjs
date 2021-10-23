@@ -10,7 +10,7 @@ import path from 'path';
 
 import files from './files.mjs';
 import normalizer from './../helper/normalizer.mjs';
-import defaultProjectConfig from './../default/projectConfig.mjs';
+import defaultProjectConfig from './../default/project_config.mjs';
 
 /**
  * @returns {string}

@@ -5,7 +5,7 @@
  */
 
 import assert from 'assert';
-import jsonFile from '../../formats/JSONFile.mjs';
+import jsonFile from '../../formats/json_file.mjs';
 
 describe('format/JSONFile', () => {
   describe('Object', () => {

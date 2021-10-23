@@ -7,7 +7,7 @@
 import assert from 'assert';
 
 import configuration from '../../utils/configuration.mjs';
-import defaultProjectConfig from './../../default/projectConfig.mjs';
+import defaultProjectConfig from './../../default/project_config.mjs';
 
 describe('utils/configuration', () => {
   const defaultConfigurationExtension_ = configuration.configExtension;

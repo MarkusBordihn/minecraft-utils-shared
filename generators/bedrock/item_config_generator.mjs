@@ -5,7 +5,7 @@
  */
 
 import compareVersions from 'compare-versions';
-import itemConfig from '../../default/itemConfig.mjs';
+import itemConfig from '../../default/item_config.mjs';
 
 /**
  * @param {Object} itemOptions
