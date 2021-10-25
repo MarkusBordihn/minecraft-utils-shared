@@ -6,6 +6,7 @@
 
 import os from 'os';
 import path from 'path';
+import { spawnSync } from 'child_process';
 
 import component from './component.mjs';
 import normalizer from './../helper/normalizer.mjs';
@@ -34,18 +35,28 @@ const type = Object.freeze({
   UNKNOWN: 'unknown',
 });
 
-const author = process.env.USER || os.userInfo().username || 'Author Name';
-const id = 'new_mod';
+const gitAuthor =
+  spawnSync('git', ['config', 'user.name'], {
+    shell: true,
+  })
+    .stdout.toString()
+    .split('\n')[0]
+    .trim() || '';
+const author =
+  gitAuthor || process.env.USER || os.userInfo().username || 'Author Name';
+const projectId = 'new_project';
 const projectPath = process.cwd();
 const possibleNamespacePrefix =
   translation.language.substring(0, 2).toLocaleLowerCase() || 'net';
 
 const config = {
   author: author,
+  id: projectId,
   component: component.type.PROJECT,
   configVersion: configVersion,
   gameType: gameType.UNKNOWN,
   type: type.UNKNOWN,
+  license: 'MIT',
   bedrock: {
     behaviorPack: {
       description:
@@ -81,7 +92,7 @@ const config = {
   forge: {
     assetsPath: path.join(
       projectPath,
-      ...'src/main/resources/assets/new_mod'.split('/')
+      ...'src/main/resources/assets/new_project'.split('/')
     ),
     className: 'NewModClassName',
     classPath: path.join(
@@ -89,11 +100,11 @@ const config = {
       ...'src/main/java/net/example'.split('/')
     ),
     description: 'This is the description for a new Forge mod',
-    id: id,
-    license: 'MIT',
     templatePath: '',
+    templatesPath: '',
     namespace:
-      `${possibleNamespacePrefix}.${normalizer.normalizeModId(author)}.${id}` ||
+      process.env.npm_package_config_project_namespace ||
+      `${possibleNamespacePrefix}.${normalizer.normalizeModId(author)}.${projectId}` ||
       'net.example',
     vendorName: `${normalizer.normalizeVendorName(author)}`,
   },
@@ -101,7 +112,7 @@ const config = {
     process.env.npm_package_config_project_name ||
     process.env.npm_package_name ||
     'New Project',
-  minEngineVersion: '1.16.5',
+  minEngineVersion: '1.17.1',
   misc: {},
   version: process.env.npm_package_version || '1.0.0',
 };
@@ -149,16 +160,16 @@ const normalize = (options, name, projectGameType) => {
   }
 
   // Add Forge specific adjustments
-  if (!normalizedOptions.forge.classPath && options.namespace) {
+  if (options.forge.namespace) {
     normalizedOptions.forge.classPath = path.join(
       process.cwd(),
       'src',
       'main',
       'java',
-      ...options.namespace.split('.')
+      ...options.forge.namespace.split('.')
     );
   }
-  if (!normalizedOptions.forge.assetsPath && options.id) {
+  if (options.id) {
     normalizedOptions.forge.assetsPath = path.join(
       process.cwd(),
       'src',

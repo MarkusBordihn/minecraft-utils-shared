@@ -100,7 +100,10 @@ const normalizeFileName = (name = '') => {
  */
 const renameFileIfExists = (oldPath, newPath, overwrite = false) => {
   if (fs.existsSync(oldPath)) {
-    fs.moveSync(oldPath, newPath, { overwrite: overwrite });
+    fs.copySync(oldPath, newPath, { overwrite: overwrite });
+    if (fs.existsSync(newPath)) {
+      fs.removeSync(oldPath);
+    }
   }
 };
 

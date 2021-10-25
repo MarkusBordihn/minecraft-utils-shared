@@ -24,6 +24,7 @@ const type = Object.freeze({
   FOOD: 'food',
   FUEL: 'fuel',
   HELMET: 'helmet',
+  SIMPLE: 'simple',
   LEGGINGS: 'leggings',
   PROJECTILE: 'projectile',
   TEST: 'test',
@@ -47,6 +48,7 @@ typeIcon[type.ENTITY_PLACER] = '🕷️';
 typeIcon[type.FOOD] = '🍎';
 typeIcon[type.FUEL] = '🛢️';
 typeIcon[type.HELMET] = '⛑';
+typeIcon[type.SIMPLE] = '🌿';
 typeIcon[type.LEGGINGS] = '👖';
 typeIcon[type.PROJECTILE] = '🏹';
 typeIcon[type.TEST] = '🧪';
@@ -64,6 +66,10 @@ const category = Object.freeze({
   TEST: 'test',
 });
 
+const namespace = process.env.npm_package_config_project_namespace
+  ? process.env.npm_package_config_project_namespace.split(/[\s.]+/).pop()
+  : 'my_item';
+
 const config = {
   component: component.type.ITEM,
   configVersion: configVersion,
@@ -71,9 +77,12 @@ const config = {
   itemName: 'new_custom_item',
   type: type.CUSTOM,
   name: 'New custom item',
-  namespace: process.env.npm_package_config_project_namespace || 'my_item',
+  namespace: namespace,
   bedrock: {
     formatVersion: '1.16.1',
+  },
+  forge: {
+    className: '',
   },
   description: '',
   variation: '',
@@ -157,7 +166,9 @@ const normalize = (options, name, itemType, variation) => {
   if (!options.id) {
     normalizedOptions.id = normalizer.normalizeItemId(
       normalizedOptions.name,
-      normalizedOptions.namespace
+      normalizedOptions.namespace.includes('.')
+        ? normalizedOptions.namespace.split(/[\s.]+/).pop()
+        : normalizedOptions.namespace
     );
   }
   if (!options.icon) {

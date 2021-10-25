@@ -8,9 +8,11 @@ import fs from 'fs';
 import glob from 'glob';
 import path from 'path';
 
+import javaFile from '../formats/java_file.mjs';
 import jsonFile from '../formats/json_file.mjs';
 
 const workingPath = process.cwd();
+const javaSrcPath = path.join(workingPath, 'src', 'main', 'java');
 
 /**
  * @param {string} search_path
@@ -98,11 +100,65 @@ const getResourcePackInWorkingPath = (manifests) => {
   return getResourcePackInSearchPath(workingPath, manifests);
 };
 
+/**
+ * @param {string} search_path
+ * @returns {Array<string>}
+ */
+const getJavaFilesInSearchPath = (search_path = process.cwd()) => {
+  const searchPath = path.resolve(search_path);
+  const result = [];
+  // Search for java files.
+  glob
+    .sync(path.join(searchPath, '**/*.java'), {
+      nodir: true,
+    })
+    .map((file) => {
+      result.push(path.resolve(file));
+    });
+  if (result.length > 0) {
+    return result;
+  }
+};
+
+/**
+ * @returns {string}
+ */
+const getJavaFilesInWorkingPath = () => {
+  return getJavaFilesInSearchPath(javaSrcPath);
+};
+
+/**
+ * @param {string} search_path
+ * @param {Array<string>} java_files
+ * @returns {string}
+ */
+ const getModInSearchPath = (search_path, java_files) => {
+  const relevantJavaFiles = java_files || getJavaFilesInSearchPath(search_path);
+  for (const file of relevantJavaFiles || []) {
+    const javaFileContent = javaFile.read(file);
+    if (javaFileContent && javaFileContent.includes('@Mod(Constants.MOD_ID)')) {
+      return path.resolve(path.dirname(file));
+    }
+  }
+};
+
+/**
+ * @param {Array<string>} java_files
+ * @returns {string}
+ */
+const getModInWorkingPath = (java_files) => {
+  return getModInSearchPath(workingPath, java_files);
+};
+
 export default {
   getBehaviorPackInSearchPath,
   getBehaviorPackInWorkingPath,
-  getResourcePackInSearchPath,
-  getResourcePackInWorkingPath,
+  getJavaFilesInSearchPath,
+  getJavaFilesInWorkingPath,
   getManifestsInSearchPath,
   getManifestsInWorkingPath,
+  getModInSearchPath,
+  getModInWorkingPath,
+  getResourcePackInSearchPath,
+  getResourcePackInWorkingPath,
 };

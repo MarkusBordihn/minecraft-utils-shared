@@ -1,6 +1,6 @@
 {
   "name": "minecraft-utils-shared",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shared utils for Minecraft Bedrock / Forge development related utilities.",
   "preferGlobal": true,
   "main": "./index.cjs",
@@ -73,7 +73,7 @@
     "@typescript-eslint/parser": "^5.1.0",
     "babel-plugin-transform-import-extension": "^1.0.3",
     "babel-plugin-transform-import-meta": "^2.1.0",
-    "eslint": "^8.0.1",
+    "eslint": "^8.1.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -92,8 +92,10 @@
     "debug": "node utils/debug.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "pretest": "npm run build",
-    "test": "mocha 'test/**/*_test.js' --recursive",
+    "test": "npm run test:units && npm run test:mapping",
+    "test:units": "mocha 'test/**/*_test.js' --recursive",
+    "pretest:mapping": "npm run build",
+    "test:mapping": "mocha 'test/mapping/*_test.*' --recursive",
     "sync": "git pull && npm install && npm update && npm prune && npm audit fix",
     "upgrade": "npm-upgrade & npm install & npm update & npm prune & npm audit fix & npm run test"
   }

@@ -9,6 +9,7 @@ const defaultPath = require('./dist/utils/default_path.cjs');
 const enquirer = require('./dist/helper/enquirer.cjs');
 const fileFinder = require('./dist/utils/file_finder.cjs');
 const files = require('./dist/utils/files.cjs');
+const gradle = require('./dist/utils/gradle.cjs');
 const init = require('./dist/utils/init.cjs');
 const itemConfig = require('./dist/default/item_config.cjs');
 const itemConfigGenerator = require('./dist/generators/bedrock/item_config_generator.cjs');
@@ -19,21 +20,24 @@ const translation = require('./dist/utils/translation.cjs');
 const uuid = require('./dist/utils/uuid.cjs');
 const { version } = require('./package.json');
 
-exports.configurationUtils = configuration.default;
-exports.defaultConfig = {
-  item: itemConfig.default,
-  project: projectConfig.default,
+module.exports = {
+  configurationUtils: configuration.default,
+  defaultConfig: {
+    item: itemConfig.default,
+    project: projectConfig.default,
+  },
+  defaultPath: defaultPath.default,
+  enquirerHelper: enquirer.default,
+  fileFinderUtils: fileFinder.default,
+  fileUtils: files.default,
+  generators: {
+    item: itemConfigGenerator.default,
+    resource: resourceConfigGenerator.default,
+  },
+  gradleUtils: gradle.default,
+  initUtils: init.default,
+  normalizeHelper: normalizer.default,
+  translationUtils: translation.default,
+  uuidUtils: uuid.default,
+  utilsVersion: version,
 };
-exports.defaultPath = defaultPath.default;
-exports.enquirerHelper = enquirer.default;
-exports.fileFinderUtils = fileFinder.default;
-exports.fileUtils = files.default;
-exports.generators = {
-  item: itemConfigGenerator.default,
-  resource: resourceConfigGenerator.default,
-};
-exports.initUtils = init.default;
-exports.normalizeHelper = normalizer.default;
-exports.translationUtils = translation.default;
-exports.utilsVersion = version;
-exports.uuidUtils = uuid.default;

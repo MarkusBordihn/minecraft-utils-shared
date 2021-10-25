@@ -13,7 +13,19 @@ const normalizeClassName = (name = '') => {
     .replace(/(^\w|\s\w)/g, (firstChar) => firstChar.toUpperCase())
     .replace(/\s+/g, '')
     .replace(/[_-]+/g, '')
-    .replace(/[^a-zA-Z0-9_-]/g, '');
+    .replace(/[^a-zA-Z0-9]/g, '');
+};
+
+/**
+ * @param {string} name
+ * @returns {string}
+ */
+ const normalizeClassNameSpace = (name = '') => {
+  return name
+    .replace(/\s+/g, '')
+    .replace(/[_-]+/g, '')
+    .replace(/[^a-zA-Z0-9]/g, '')
+    .toLowerCase();
 };
 
 /**
@@ -33,9 +45,8 @@ const normalizeFileName = (name = '') => {
  */
 const normalizeModId = (name = '') => {
   return name
-    .replace(/\s+/g, '')
-    .replace(/[_-]+/g, '')
-    .replace(/[^a-zA-Z0-9_-]/g, '')
+    .replace(/[\s-]+/g, '_')
+    .replace(/\W/g, '')
     .toLowerCase();
 };
 
@@ -72,11 +83,12 @@ const normalizePathName = (name = '') => {
  * @returns {string}
  */
 const normalizeVendorName = (name = '') => {
-  return name.replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase();
+  return name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
 };
 
 export default {
   normalizeClassName,
+  normalizeClassNameSpace,
   normalizeFileName,
   normalizeItemId,
   normalizeModId,

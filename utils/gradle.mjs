@@ -79,4 +79,4 @@ const getGradleExecutable = () => {
   return '';
 };
 
-export { runTask };
+export default { runTask };

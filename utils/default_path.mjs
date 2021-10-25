@@ -28,6 +28,9 @@ const assetsPath =
 // Manifest files
 const manifests = fileFinderUtils.getManifestsInWorkingPath();
 
+// Java files
+const javaFiles = fileFinderUtils.getJavaFilesInWorkingPath();
+
 // Minecraft Bedrock specific paths
 const minecraftBedrockPath = fileUtils.returnIfFileExists(
   process.env.LOCALAPPDATA,
@@ -39,6 +42,9 @@ const minecraftBedrockLocalStatePath = fileUtils.returnIfFileExists(
 );
 
 // Minecraft Forge specific paths
+const minecraftForgeModPath = javaFiles
+  ? fileFinderUtils.getModInWorkingPath(javaFiles)
+  : '';
 
 export default {
   // General Paths
@@ -63,6 +69,9 @@ export default {
 
   // Manifests
   manifests: manifests || [],
+
+  // Java files
+  javaFiles: javaFiles || [],
 
   // Minecraft Bedrock specific
   bedrock: {
@@ -103,7 +112,11 @@ export default {
   },
 
   // Minecraft Forge specific
-  forge: {},
+  forge: {
+    javaPath: path.join(projectPath, 'src', 'main', 'java'),
+    modPath: minecraftForgeModPath,
+    itemPath: fileUtils.returnIfFileExists(minecraftForgeModPath, 'item'),
+  },
 
   // Test
   test: {

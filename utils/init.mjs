@@ -70,12 +70,12 @@ const createWorkspace = (npmPackage, targetPath = defaultPath.project.path) => {
   console.log(chalk.green('Copying additional files ...'));
   // Add git related files if not exists.
   fileUtils.copyFileIfNotExists(
-    path.join(defaultPath.assets.init, '.gitignore'),
-    path.join(targetPath, '.gitignore')
-  );
-  fileUtils.copyFileIfNotExists(
     path.join(defaultPath.assets.init, '.gitattributes'),
     path.join(targetPath, '.gitattributes')
+  );
+  fileUtils.copyFileIfNotExists(
+    path.join(defaultPath.assets.init, '.gitignore'),
+    path.join(targetPath, '.gitignore')
   );
 
   if (npmPackage) {

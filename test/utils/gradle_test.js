@@ -7,28 +7,28 @@
 import assert from 'assert';
 import path from 'path';
 
-import { runTask } from '../../utils/gradle.mjs';
+import gradle from '../../utils/gradle.mjs';
 
 describe('utils/gradle', () => {
   const ENV_BAK = process.env;
 
   describe('runTask()', () => {
     process.env['GRADLE_HOME_TEST'] = path.resolve('gradleWrapper');
-    const testOk = runTask(undefined, path.resolve('gradleWrapper'));
+    const testOk = gradle.runTask(undefined, path.resolve('gradleWrapper'));
     it('should be ok', () => {
       assert.ok(testOk);
     });
   });
   describe('runTask(task_name)', () => {
     process.env['GRADLE_HOME_TEST'] = path.resolve('gradleWrapper');
-    const testOk = runTask('--version');
+    const testOk = gradle.runTask('--version');
     it('should be ok', () => {
       assert.ok(testOk);
     });
   });
   describe('runTask(task_name, workspace)', () => {
     process.env['GRADLE_HOME_TEST'] = path.resolve('gradleWrapper');
-    const testOk = runTask('--version', path.resolve('gradleWrapper'));
+    const testOk = gradle.runTask('--version', path.resolve('gradleWrapper'));
     it('should be ok', () => {
       assert.ok(testOk);
     });
