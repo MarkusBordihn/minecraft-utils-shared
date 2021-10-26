@@ -1,5 +1,5 @@
 /**
- * @file Minecraft Utils Shared Test - Default Path
+ * @file Minecraft Utils Shared Test - JSON file
  * @license Apache-2.0
  * @author Markus@Bordihn.de (Markus Bordihn)
  */

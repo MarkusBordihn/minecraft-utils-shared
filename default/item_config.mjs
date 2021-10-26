@@ -66,6 +66,21 @@ const category = Object.freeze({
   TEST: 'test',
 });
 
+/**
+ * @enum
+ */
+const creativeTab = Object.freeze({
+  BUILDING_BLOCKS: 'TAB_BUILDING_BLOCKS',
+  COMBAT: 'TAB_COMBAT',
+  DECORATIONS: 'TAB_DECORATIONS',
+  FOOD: 'TAB_FOOD',
+  MISC: 'TAB_MISC',
+  REDSTONE: 'TAB_REDSTONE',
+  SEARCH: 'TAB_SEARCH',
+  TOOLS: 'TAB_TOOLS',
+  TRANSPORTATION: 'TAB_TRANSPORTATION',
+});
+
 const namespace = process.env.npm_package_config_project_namespace
   ? process.env.npm_package_config_project_namespace.split(/[\s.]+/).pop()
   : 'my_item';
@@ -83,6 +98,12 @@ const config = {
   },
   forge: {
     className: '',
+  },
+  placeholder: {
+    CreativeTab: 'TAB_MISC',
+    ITEM_NAME: 'NEW_CUSTOM_ITEM',
+    ItemClassName: '',
+    item_name: 'new_custom_item',
   },
   description: '',
   variation: '',
@@ -192,13 +213,31 @@ const normalize = (options, name, itemType, variation) => {
         normalizedOptions.category = category.ITEMS;
     }
   }
+  if (!options.placeholder) {
+    normalizedOptions.placeholder = getPlaceholders(normalizedOptions);
+  }
 
   return component.sortObjectByKeys(normalizedOptions);
+};
+
+/**
+ * @param {object} options
+ * @returns
+ */
+const getPlaceholders = (options) => {
+  const result = {
+    ITEM_NAME: options.itemName.toUpperCase(),
+    item_name: options.itemName.toLowerCase(),
+    CreativeTab: creativeTab.MISC,
+    ItemClassName: options.forge.className,
+  };
+  return result;
 };
 
 export default {
   category,
   config,
+  creativeTab,
   getItemTypeIcon,
   normalize,
   type,

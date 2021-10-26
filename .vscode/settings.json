@@ -37,5 +37,8 @@
         ".vscode",
         "node_modules",
         "package-lock.json"
-      ],
+    ],
+    "sonarlint.testFilePattern": "test_files/**",
+    "java.autobuild.enabled": false,
+    "java.dependency.autoRefresh": false,
 }

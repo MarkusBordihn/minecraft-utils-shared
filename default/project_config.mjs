@@ -48,6 +48,14 @@ const projectId = 'new_project';
 const projectPath = process.cwd();
 const possibleNamespacePrefix =
   translation.language.substring(0, 2).toLocaleLowerCase() || 'net';
+const assetsPath = path.join(
+  projectPath,
+  ...'src/main/resources/assets/new_project'.split('/')
+);
+const classPath = path.join(
+  projectPath,
+  ...'src/main/java/net/example'.split('/')
+);
 
 const config = {
   author: author,
@@ -90,23 +98,27 @@ const config = {
       'New_cool_items',
   },
   forge: {
-    assetsPath: path.join(
-      projectPath,
-      ...'src/main/resources/assets/new_project'.split('/')
-    ),
+    assetsPath: assetsPath,
     className: 'NewModClassName',
-    classPath: path.join(
-      projectPath,
-      ...'src/main/java/net/example'.split('/')
-    ),
+    classPath: classPath,
     description: 'This is the description for a new Forge mod',
     templatePath: '',
     templatesPath: '',
     namespace:
       process.env.npm_package_config_project_namespace ||
-      `${possibleNamespacePrefix}.${normalizer.normalizeModId(author)}.${projectId}` ||
+      `${possibleNamespacePrefix}.${normalizer.normalizeModId(
+        author
+      )}.${projectId}` ||
       'net.example',
     vendorName: `${normalizer.normalizeVendorName(author)}`,
+  },
+  placeholder: {
+    Author: 'Markus Bordihn',
+    ModId: 'new_project',
+    ModName: 'minecraft-utils-shared',
+    assetsPath: assetsPath,
+    classPath: classPath,
+    packageNamespace: 'de.markus_bordihn.new_project',
   },
   name:
     process.env.npm_package_config_project_name ||
@@ -160,7 +172,7 @@ const normalize = (options, name, projectGameType) => {
   }
 
   // Add Forge specific adjustments
-  if (options.forge.namespace) {
+  if (options.forge && options.forge.namespace) {
     normalizedOptions.forge.classPath = path.join(
       process.cwd(),
       'src',
@@ -179,8 +191,27 @@ const normalize = (options, name, projectGameType) => {
       options.id
     );
   }
+  if (!options.placeholder) {
+    normalizedOptions.placeholder = getPlaceholders(normalizedOptions);
+  }
 
   return component.sortObjectByKeys(normalizedOptions);
+};
+
+/**
+ * @param {object} options
+ * @returns
+ */
+const getPlaceholders = (options) => {
+  const result = {
+    Author: options.author,
+    ModId: options.id,
+    ModName: options.name,
+    packageNamespace: options.forge.namespace,
+    classPath: options.forge.classPath || '',
+    assetsPath: options.forge.assetsPath || '',
+  };
+  return result;
 };
 
 export default {

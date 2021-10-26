@@ -4,12 +4,10 @@
     "google",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-    "plugin:compat/recommended",
-    "plugin:jsdoc/recommended"
+    "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint/eslint-plugin", "jsdoc"],
+  "plugins": ["@typescript-eslint/eslint-plugin", "mocha"],
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"

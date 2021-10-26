@@ -17,6 +17,7 @@ import minecraftUtilsShared, {
   gradleUtils,
   initUtils,
   normalizeHelper,
+  templateUtils,
   translationUtils,
   utilsVersion,
   uuidUtils,
@@ -59,6 +60,9 @@ describe('Module Mapping', () => {
     });
     it('normalizeHelper', () => {
       assert.equal(typeof normalizeHelper, 'object');
+    });
+    it('templateUtils', () => {
+      assert.equal(typeof templateUtils, 'object');
     });
     it('translationUtils', () => {
       assert.equal(typeof translationUtils, 'object');

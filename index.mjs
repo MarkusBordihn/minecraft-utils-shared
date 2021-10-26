@@ -16,6 +16,7 @@ import itemConfigGenerator from './generators/bedrock/item_config_generator.mjs'
 import normalizer from './helper/normalizer.mjs';
 import projectConfig from './default/project_config.mjs';
 import resourceConfigGenerator from './generators/bedrock/resource_config_generator.mjs';
+import template from './utils/template.mjs';
 import translation from './utils/translation.mjs';
 import uuid from './utils/uuid.mjs';
 
@@ -30,7 +31,7 @@ const generators = {
 };
 
 const utilsVersion =
-'unsupported (see https://nodejs.org/api/esm.html#esm_experimental_json_modules)';
+  'unsupported (see https://nodejs.org/api/esm.html#esm_experimental_json_modules)';
 
 // Export default
 export default {
@@ -44,6 +45,7 @@ export default {
   gradleUtils: gradle,
   initUtils: init,
   normalizeHelper: normalizer,
+  templateUtils: template,
   translationUtils: translation,
   utilsVersion,
   uuidUtils: uuid,
@@ -61,6 +63,7 @@ export {
   gradle as gradleUtils,
   init as initUtils,
   normalizer as normalizeHelper,
+  template as templateUtils,
   translation as translationUtils,
   utilsVersion,
   uuid as uuidUtils,
