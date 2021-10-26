@@ -104,6 +104,7 @@ const config = {
     ITEM_NAME: 'NEW_CUSTOM_ITEM',
     ItemClassName: '',
     item_name: 'new_custom_item',
+    ItemName: 'New custom item',
   },
   description: '',
   variation: '',
@@ -226,9 +227,10 @@ const normalize = (options, name, itemType, variation) => {
  */
 const getPlaceholders = (options) => {
   const result = {
+    CreativeTab: creativeTab.MISC,
+    ItemName: options.name,
     ITEM_NAME: options.itemName.toUpperCase(),
     item_name: options.itemName.toLowerCase(),
-    CreativeTab: creativeTab.MISC,
     ItemClassName: options.forge.className,
   };
   return result;

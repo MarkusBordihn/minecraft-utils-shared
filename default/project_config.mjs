@@ -56,6 +56,12 @@ const classPath = path.join(
   projectPath,
   ...'src/main/java/net/example'.split('/')
 );
+const namespace =
+  process.env.npm_package_config_project_namespace ||
+  `${possibleNamespacePrefix}.${normalizer.normalizeModId(
+    author
+  )}.${projectId}` ||
+  'net.example';
 
 const config = {
   author: author,
@@ -104,21 +110,16 @@ const config = {
     description: 'This is the description for a new Forge mod',
     templatePath: '',
     templatesPath: '',
-    namespace:
-      process.env.npm_package_config_project_namespace ||
-      `${possibleNamespacePrefix}.${normalizer.normalizeModId(
-        author
-      )}.${projectId}` ||
-      'net.example',
+    namespace: namespace,
     vendorName: `${normalizer.normalizeVendorName(author)}`,
   },
   placeholder: {
-    Author: 'Markus Bordihn',
+    Author: author,
     ModId: 'new_project',
     ModName: 'minecraft-utils-shared',
     assetsPath: assetsPath,
     classPath: classPath,
-    packageNamespace: 'de.markus_bordihn.new_project',
+    packageNamespace: namespace,
   },
   name:
     process.env.npm_package_config_project_name ||

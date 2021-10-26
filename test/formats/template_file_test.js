@@ -31,7 +31,7 @@ describe('format/TemplateFile', () => {
       );
       assert(singleTemplateFile[0].code.includes('TEST_ITEM'));
       assert.equal(
-        singleTemplateFile[0].fileName,
+        singleTemplateFile[0].filePath,
         path.join('test', 'file.java')
       );
       assert.equal(singleTemplateFile[0].after, '// Register Items');
@@ -42,38 +42,73 @@ describe('format/TemplateFile', () => {
       );
       assert(multipleTemplateFile[0].code.includes('TEST_ITEM'));
       assert.equal(
-        multipleTemplateFile[0].fileName,
+        multipleTemplateFile[0].filePath,
         path.join('test', 'test_item.java')
       );
       assert.equal(multipleTemplateFile[0].after, '// Register Items');
 
       assert(multipleTemplateFile[1].code.includes('TEST_ITEM_2'));
       assert.equal(
-        multipleTemplateFile[1].fileName,
+        multipleTemplateFile[1].filePath,
         path.join('test', 'test_item_2.java')
       );
       assert.equal(multipleTemplateFile[1].before, '// Register Items');
 
       assert(multipleTemplateFile[2].code.includes('TEST_ITEM_3'));
       assert.equal(
-        multipleTemplateFile[2].fileName,
+        multipleTemplateFile[2].filePath,
         path.join('test', 'test_item_3.java')
       );
       assert.equal(multipleTemplateFile[2].after, '// Deregister Items');
 
       assert(multipleTemplateFile[3].code.includes('TEST_ITEM_4'));
       assert.equal(
-        multipleTemplateFile[3].fileName,
+        multipleTemplateFile[3].filePath,
         path.join('test', 'test_item_4.java')
       );
       assert.equal(multipleTemplateFile[3].create, true);
 
       assert(multipleTemplateFile[4].code.includes('TEST_ITEM_5'));
       assert.equal(
-        multipleTemplateFile[4].fileName,
+        multipleTemplateFile[4].filePath,
         path.join('test', 'test_item_5.java')
       );
       assert.equal(multipleTemplateFile[4].create, 'overwrite');
+    });
+  });
+
+  describe('.getBaseTemplatePath(template)', () => {
+    it('should be "/home/example/templates', () => {
+      assert.equal(
+        templateFile.getBaseTemplatePath(
+          path.join('home', 'example', 'templates', 'src', 'java', 'test.java')
+        ),
+        path.join(process.cwd(), 'home', 'example', 'templates')
+      );
+    });
+    it('should be "/home/example/templates', () => {
+      assert.equal(
+        templateFile.getBaseTemplatePath(
+          path.join('home', 'example', 'templates', 'resources', 'test.png')
+        ),
+        path.join(process.cwd(), 'home', 'example', 'templates')
+      );
+    });
+    it('should be "/home/example/templates', () => {
+      assert.equal(
+        templateFile.getBaseTemplatePath(
+          path.join('home', 'example', 'templates', 'java', 'test.java')
+        ),
+        path.join(process.cwd(), 'home', 'example', 'templates')
+      );
+    });
+    it('should be "/example_templates/templates', () => {
+      assert.equal(
+        templateFile.getBaseTemplatePath(
+          path.join('core_templates', 'templates', 'src', 'java', 'test.java')
+        ),
+        path.join(process.cwd(), 'core_templates', 'templates')
+      );
     });
   });
 });

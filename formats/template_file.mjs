@@ -45,7 +45,6 @@ const parse = (file, placeholder = {}) => {
 
   // Converting placeholders, if needed.
   if (Object.keys(placeholder).length > 0) {
-    console.log('Replace placeholders');
     content = content.replace(
       /\[\[ --([A-Za-z0-9_. ]+)-- \]\]/g,
       (matchString) => {
@@ -70,7 +69,8 @@ const parse = (file, placeholder = {}) => {
       const positionInstruction = patchPart[0].trim();
       const code = patchPart[1].replace(/^\r\n|\n|\r/, '');
       const patchData = {
-        fileName: path.join.apply(null, fileName.split('/')),
+        fileName: fileName,
+        filePath: path.join.apply(null, fileName.split('/')),
         code: code,
       };
       if (positionInstruction.startsWith('before:')) {
@@ -81,6 +81,20 @@ const parse = (file, placeholder = {}) => {
         patchData['create'] = positionInstruction.replace('create:', '').trim();
       } else if (positionInstruction == 'create') {
         patchData['create'] = true;
+      } else if (positionInstruction.startsWith('copy:')) {
+        let targetFile = positionInstruction.replace('copy:', '').trim();
+        if (targetFile.startsWith('/') && !targetFile.startsWith('//')) {
+          const baseTemplatePath = getBaseTemplatePath(file);
+          if (baseTemplatePath) {
+            targetFile = path.join(
+              baseTemplatePath,
+              path.join.apply(null, targetFile.substr(1).split('/'))
+            );
+          }
+        } else {
+          targetFile = path.join.apply(null, targetFile.split('/'));
+        }
+        patchData['copy'] = targetFile;
       }
       data.push(patchData);
     }
@@ -88,7 +102,42 @@ const parse = (file, placeholder = {}) => {
   return data;
 };
 
+/**
+ * @param {string} template
+ */
+const getBaseTemplatePath = (template) => {
+  let result = '';
+  const fullTemplatePath = path.resolve(template);
+  const templatePath = fullTemplatePath.split(path.sep).join('/');
+  if (templatePath.includes('/templates/java/')) {
+    result = templatePath.substr(
+      0,
+      templatePath.indexOf('/templates/java/') + '/templates'.length
+    );
+  } else if (templatePath.includes('/templates/resources/')) {
+    result = templatePath.substr(
+      0,
+      templatePath.indexOf('/templates/resources/') + '/templates'.length
+    );
+  } else if (templatePath.includes('/templates/src/')) {
+    result = templatePath.substr(
+      0,
+      templatePath.indexOf('/templates/src/') + '/templates'.length
+    );
+  } else if (templatePath.includes('/templates/')) {
+    result = templatePath.substr(
+      0,
+      templatePath.indexOf('/templates/') + '/templates'.length
+    );
+  }
+  if (result.includes(path.sep)) {
+    return result;
+  }
+  return result.split('/').join(path.sep);
+};
+
 export default {
   read,
   parse,
+  getBaseTemplatePath,
 };
