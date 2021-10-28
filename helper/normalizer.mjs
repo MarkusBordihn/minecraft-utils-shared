@@ -20,7 +20,7 @@ const normalizeClassName = (name = '') => {
  * @param {string} name
  * @returns {string}
  */
- const normalizeClassNameSpace = (name = '') => {
+const normalizeClassNameSpace = (name = '') => {
   return name
     .replace(/\s+/g, '')
     .replace(/[_-]+/g, '')
@@ -72,6 +72,13 @@ const normalizeItemId = (name = '', namespace = 'my_items') => {
 
 /**
  * @param {string} name
+ * @param {string} namespace
+ * @returns {string}
+ */
+const normalizeBlockId = normalizeItemId;
+
+/**
+ * @param {string} name
  * @returns {string}
  */
 const normalizePathName = (name = '') => {
@@ -87,6 +94,7 @@ const normalizeVendorName = (name = '') => {
 };
 
 export default {
+  normalizeBlockId,
   normalizeClassName,
   normalizeClassNameSpace,
   normalizeFileName,

@@ -8,6 +8,7 @@
  * @enum
  */
 const type = Object.freeze({
+  BLOCK: 'block',
   ITEM: 'item',
   PROJECT: 'project',
 });

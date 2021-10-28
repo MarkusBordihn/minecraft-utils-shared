@@ -56,6 +56,10 @@ const classPath = path.join(
   projectPath,
   ...'src/main/java/net/example'.split('/')
 );
+const dataPath = path.join(
+  projectPath,
+  ...'src/main/resources/data/new_project'.split('/')
+);
 const namespace =
   process.env.npm_package_config_project_namespace ||
   `${possibleNamespacePrefix}.${normalizer.normalizeModId(
@@ -107,10 +111,11 @@ const config = {
     assetsPath: assetsPath,
     className: 'NewModClassName',
     classPath: classPath,
+    dataPath: dataPath,
     description: 'This is the description for a new Forge mod',
+    namespace: namespace,
     templatePath: '',
     templatesPath: '',
-    namespace: namespace,
     vendorName: `${normalizer.normalizeVendorName(author)}`,
   },
   placeholder: {
@@ -119,6 +124,7 @@ const config = {
     ModName: 'minecraft-utils-shared',
     assetsPath: assetsPath,
     classPath: classPath,
+    dataPath: dataPath,
     packageNamespace: namespace,
   },
   name:
@@ -173,13 +179,13 @@ const normalize = (options, name, projectGameType) => {
   }
 
   // Add Forge specific adjustments
-  if (options.forge && options.forge.namespace) {
+  if (options['forge.namespace']) {
     normalizedOptions.forge.classPath = path.join(
       process.cwd(),
       'src',
       'main',
       'java',
-      ...options.forge.namespace.split('.')
+      ...options['forge.namespace'].split('.')
     );
   }
   if (options.id) {
@@ -189,6 +195,14 @@ const normalize = (options, name, projectGameType) => {
       'main',
       'resources',
       'assets',
+      options.id
+    );
+    normalizedOptions.forge.dataPath = path.join(
+      process.cwd(),
+      'src',
+      'main',
+      'resources',
+      'data',
       options.id
     );
   }
@@ -208,9 +222,10 @@ const getPlaceholders = (options) => {
     Author: options.author,
     ModId: options.id,
     ModName: options.name,
-    packageNamespace: options.forge.namespace,
-    classPath: options.forge.classPath || '',
     assetsPath: options.forge.assetsPath || '',
+    classPath: options.forge.classPath || '',
+    dataPath: options.forge.dataPath || '',
+    packageNamespace: options.forge.namespace,
   };
   return result;
 };

@@ -4,6 +4,7 @@
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
+const blockConfig = require('./dist/default/block_config.cjs');
 const configuration = require('./dist/utils/configuration.cjs');
 const defaultPath = require('./dist/utils/default_path.cjs');
 const enquirer = require('./dist/helper/enquirer.cjs');
@@ -24,6 +25,7 @@ const { version } = require('./package.json');
 module.exports = {
   configurationUtils: configuration.default,
   defaultConfig: {
+    block: blockConfig.default,
     item: itemConfig.default,
     project: projectConfig.default,
   },

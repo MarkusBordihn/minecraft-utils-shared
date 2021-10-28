@@ -1,4 +1,3 @@
-/* eslint-disable compat/compat */
 /**
  * @file Minecraft Utils Shared - Default Paths
  * @license Apache-2.0

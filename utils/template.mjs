@@ -35,10 +35,14 @@ const processTemplateFile = (template, placeholder, targetPath = '') => {
 
     // Handle different kind of operation based on the patch definition.
     if (definition.copy) {
-      // Copy src file to dst file
-      console.info(chalk.green('[Copy]'), fileName);
-      fs.ensureDirSync(path.dirname(filePath));
-      fs.copyFileSync(definition.copy, filePath);
+      // Copy src file to dst file, if not already exists
+      if (fs.existsSync(filePath)) {
+        console.info(chalk.red('[Skipping]'), fileName, 'already exists.');
+      } else {
+        console.info(chalk.green('[Copy]'), fileName);
+        fs.ensureDirSync(path.dirname(filePath));
+        fs.copyFileSync(definition.copy, filePath);
+      }
     } else {
       if (definition.create) {
         // Create new file

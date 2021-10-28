@@ -135,7 +135,7 @@ const getItemTypeIcon = (itemType) => {
 const normalize = (options, name, itemType, variation) => {
   const normalizedOptions = Object.assign({}, config);
 
-  // Handle specific options.
+  // Handle item specific options.
   for (const [key, value] of Object.entries(options)) {
     const identifier = key.includes('.') ? key.split('.')[0] + '.' : '';
     const identifierKey = identifier ? identifier.split('.')[0] : '';

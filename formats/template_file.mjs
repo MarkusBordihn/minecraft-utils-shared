@@ -67,7 +67,9 @@ const parse = (file, placeholder = {}) => {
       );
       const patchPart = patchParts.split(positionMarker);
       const positionInstruction = patchPart[0].trim();
-      const code = patchPart[1].replace(/^\r\n|\n|\r/, '');
+      const code = patchPart[1]
+        .replace(/^\r\n|\n|\r/, '')
+        .replace(/(\r\n|\n|\r){2,}$/, '\r\n');
       const patchData = {
         fileName: fileName,
         filePath: path.join.apply(null, fileName.split('/')),

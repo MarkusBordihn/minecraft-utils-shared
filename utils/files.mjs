@@ -15,7 +15,7 @@ import path from 'path';
  */
 const copyFileIfNotExists = (source, target) => {
   if (fs.existsSync(source) && !fs.existsSync(target)) {
-    let parentDir = path.dirname(target);
+    const parentDir = path.dirname(target);
     if (parentDir && !fs.existsSync(parentDir)) {
       fs.ensureDirSync(parentDir);
     }
@@ -72,7 +72,7 @@ const createFileIfNotExists = (folderPath, name, content = '') => {
 const createFolderIfNotExists = (folderPath, name) => {
   const pathName = name ? path.join(folderPath, name) : folderPath;
   if (!fs.existsSync(pathName)) {
-    fs.mkdir(pathName, { recursive: true }, (error) => {
+    fs.mkdirSync(pathName, { recursive: true }, (error) => {
       if (error) {
         return console.error(
           chalk.red('Error creating new folder', pathName, ':', error)
@@ -98,12 +98,21 @@ const normalizeFileName = (name = '') => {
  * @param {string} newPath
  * @param {boolean} overwrite
  */
+const renameFile = (oldPath, newPath, overwrite = false) => {
+  fs.copySync(oldPath, newPath, { overwrite: overwrite });
+  if (fs.existsSync(newPath)) {
+    fs.removeSync(oldPath);
+  }
+};
+
+/**
+ * @param {string} oldPath
+ * @param {string} newPath
+ * @param {boolean} overwrite
+ */
 const renameFileIfExists = (oldPath, newPath, overwrite = false) => {
   if (fs.existsSync(oldPath)) {
-    fs.copySync(oldPath, newPath, { overwrite: overwrite });
-    if (fs.existsSync(newPath)) {
-      fs.removeSync(oldPath);
-    }
+    renameFile(oldPath, newPath, overwrite);
   }
 };
 
@@ -174,6 +183,7 @@ export default {
   createFileIfNotExists,
   createFolderIfNotExists,
   normalizeFileName,
+  renameFile,
   renameFileIfExists,
   replaceInFiles,
   returnIfFileExists,

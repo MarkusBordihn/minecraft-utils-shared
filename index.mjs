@@ -4,6 +4,7 @@
  * @author Markus@Bordihn.de (Markus Bordihn)
  */
 
+import blockConfig from './default/block_config.mjs';
 import configuration from './utils/configuration.mjs';
 import defaultPath from './utils/default_path.mjs';
 import enquirer from './helper/enquirer.mjs';
@@ -21,6 +22,7 @@ import translation from './utils/translation.mjs';
 import uuid from './utils/uuid.mjs';
 
 const defaultConfig = {
+  block: blockConfig,
   item: itemConfig,
   project: projectConfig,
 };
