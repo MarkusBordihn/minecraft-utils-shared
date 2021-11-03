@@ -19,6 +19,7 @@ const type = Object.freeze({
   GRASS: 'grass',
   LIQUID: 'liquid',
   ORE: 'ore',
+  ROD: 'rod',
   SAPLING: 'sapling',
   SIMPLE: 'simple',
   TEST: 'test',
@@ -32,6 +33,7 @@ const typeIcon = {};
 typeIcon[type.CUSTOM] = '✏️';
 typeIcon[type.GRASS] = '🌿';
 typeIcon[type.ORE] = '💎';
+typeIcon[type.ROD] = '➖';
 typeIcon[type.SIMPLE] = '🔲';
 typeIcon[type.TEST] = '🧪';
 

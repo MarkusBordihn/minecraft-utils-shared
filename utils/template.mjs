@@ -24,7 +24,9 @@ const processTemplateFile = (template, placeholder, targetPath = '') => {
     console.error('Unable to access target path:', targetPath);
     return;
   }
-  console.log(chalk.green('🏷️  Processing template', template, '...'));
+  console.log(
+    chalk.green('🏷️  Processing template', template, 'with', placeholder)
+  );
   const templateDefinition = templateFile.parse(template, placeholder);
   templateDefinition.forEach((definition) => {
     const fileName = definition.fileName;
