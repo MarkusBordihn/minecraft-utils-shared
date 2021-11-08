@@ -1,6 +1,6 @@
 {
   "name": "minecraft-utils-shared",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Shared utils for Minecraft Bedrock / Forge development related utilities.",
   "preferGlobal": true,
   "main": "./index.cjs",

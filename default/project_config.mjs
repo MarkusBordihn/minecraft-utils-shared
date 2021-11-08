@@ -56,10 +56,7 @@ const classPath = path.join(
   projectPath,
   ...'src/main/java/net/example'.split('/')
 );
-const dataPath = path.join(
-  projectPath,
-  ...'src/main/resources/data/new_project'.split('/')
-);
+const dataPath = path.join(projectPath, 'src', 'main', 'resources', 'data');
 const namespace =
   process.env.npm_package_config_project_namespace ||
   `${possibleNamespacePrefix}.${normalizer.normalizeModId(
@@ -195,14 +192,6 @@ const normalize = (options, name, projectGameType) => {
       'main',
       'resources',
       'assets',
-      options.id
-    );
-    normalizedOptions.forge.dataPath = path.join(
-      process.cwd(),
-      'src',
-      'main',
-      'resources',
-      'data',
       options.id
     );
   }

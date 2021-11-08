@@ -27,6 +27,7 @@ const type = Object.freeze({
   SIMPLE: 'simple',
   LEGGINGS: 'leggings',
   PROJECTILE: 'projectile',
+  TEMPLATE: 'template',
   TEST: 'test',
   THROWABLE: 'throwable',
   WEAPON: 'weapon',
@@ -48,9 +49,10 @@ typeIcon[type.ENTITY_PLACER] = '🕷️';
 typeIcon[type.FOOD] = '🍎';
 typeIcon[type.FUEL] = '🛢️';
 typeIcon[type.HELMET] = '⛑';
-typeIcon[type.SIMPLE] = '🌿';
 typeIcon[type.LEGGINGS] = '👖';
 typeIcon[type.PROJECTILE] = '🏹';
+typeIcon[type.SIMPLE] = '🌿';
+typeIcon[type.TEMPLATE] = '📑';
 typeIcon[type.TEST] = '🧪';
 typeIcon[type.THROWABLE] = '❄️';
 typeIcon[type.WEAPON] = '⚔️';
