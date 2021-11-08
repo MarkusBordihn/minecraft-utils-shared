@@ -1,6 +1,6 @@
 {
   "name": "minecraft-utils-shared",
-  "version": "0.1.7",
+  "version": "0.2.4",
   "description": "Shared utils for Minecraft Bedrock / Forge development related utilities.",
   "preferGlobal": true,
   "main": "./index.cjs",
@@ -73,7 +73,7 @@
     "@typescript-eslint/parser": "^5.3.0",
     "babel-plugin-transform-import-extension": "^1.0.3",
     "babel-plugin-transform-import-meta": "^2.1.0",
-    "eslint": "^8.1.0",
+    "eslint": "^8.2.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-mocha": "^9.0.0",

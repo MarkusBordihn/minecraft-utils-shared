@@ -108,6 +108,7 @@ const config = {
     item_name: 'new_custom_item',
     ItemName: 'New custom item',
   },
+  template: '',
   description: '',
   variation: '',
   icon: 'new_custom_item',

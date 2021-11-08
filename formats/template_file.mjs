@@ -12,6 +12,36 @@ const fileMarker = '+++';
 const positionMarker = '@@@';
 
 /**
+ * @enum
+ */
+const fileType = Object.freeze({
+  JAVA: 'java',
+  RESOURCE: 'resource',
+  DATA: 'data',
+  DATA_MINECRAFT: 'data_minecraft',
+  UNKNOWN: 'unknown',
+});
+
+const resourceLocations = [
+  'blockstates',
+  'font',
+  'lang',
+  'models',
+  'particles',
+  'shaders',
+  'texts',
+  'textures',
+];
+
+const dataLocations = [
+  'advancements',
+  'loot_tables',
+  'recipes',
+  'structures',
+  'tags',
+];
+
+/**
  * @param {string} file
  */
 const read = (file) => {
@@ -73,6 +103,7 @@ const parse = (file, placeholder = {}) => {
       const patchData = {
         fileName: fileName,
         filePath: path.join.apply(null, fileName.split('/')),
+        fileType: getFileType(fileName),
         code: code,
       };
       if (positionInstruction.startsWith('before:')) {
@@ -138,8 +169,69 @@ const getBaseTemplatePath = (template) => {
   return result.split('/').join(path.sep);
 };
 
+/**
+ * @param {string} fileName
+ * @returns {fileType} file type
+ */
+const getFileType = (fileName) => {
+  // Normalize file path, if needed
+  if (fileName.startsWith('/')) {
+    fileName = fileName.substr(1);
+  }
+  if (fileName.startsWith('[[ --ModId-- ]]/')) {
+    fileName = fileName.replace('[[ --ModId-- ]]/', '');
+  }
+
+  // Try to get parent folder for easier detection
+  const targetParentFolder = fileName.includes('/')
+    ? fileName.split('/')[0]
+    : '';
+
+  // Java Project files
+  if (fileName.endsWith('.java') && !fileName.includes('src/main/java')) {
+    return fileType.JAVA;
+  }
+
+  // Resources files
+  if (
+    (fileName.endsWith('.json') ||
+      fileName.endsWith('.png') ||
+      fileName.endsWith('.fsh') ||
+      fileName.endsWith('.vsh') ||
+      fileName.endsWith('.mcmeta')) &&
+    !fileName.includes('src/main/resources/assets') &&
+    resourceLocations.indexOf(targetParentFolder) != -1
+  ) {
+    return fileType.RESOURCE;
+  }
+
+  // Data files
+  if (
+    (fileName.endsWith('.json') || fileName.endsWith('.nbt')) &&
+    !fileName.includes('src/main/resources/data') &&
+    dataLocations.indexOf(targetParentFolder) != -1
+  ) {
+    return fileType.DATA;
+  }
+
+  // Data files (Minecraft)
+  if (
+    fileName.startsWith('minecraft/') &&
+    (fileName.endsWith('.json') || fileName.endsWith('.nbt')) &&
+    !fileName.includes('src/main/resources/data')
+  ) {
+    if (dataLocations.indexOf(fileName.split('/')[1]) != -1) {
+      return fileType.DATA_MINECRAFT;
+    }
+  }
+
+  return fileType.UNKNOWN;
+};
+
 export default {
-  read,
-  parse,
+  fileType,
   getBaseTemplatePath,
+  getFileType,
+  parse,
+  read,
 };

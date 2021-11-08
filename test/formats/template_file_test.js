@@ -111,4 +111,79 @@ describe('format/TemplateFile', () => {
       );
     });
   });
+
+  describe('.getFileType()', () => {
+    it('"/test/hello_world/listen.txt" should be fileType.UNKNOWN', () => {
+      assert.equal(
+        templateFile.getFileType('/test/hello_world/listen.txt'),
+        templateFile.fileType.UNKNOWN
+      );
+    });
+    it('"block/ModBlocks.java" should be fileType.JAVA', () => {
+      assert.equal(
+        templateFile.getFileType('block/ModBlocks.java'),
+        templateFile.fileType.JAVA
+      );
+    });
+    it('"item/ModItems.java should be fileType.JAVA', () => {
+      assert.equal(
+        templateFile.getFileType('item/ModItems.java'),
+        templateFile.fileType.JAVA
+      );
+    });
+    it('"lang/en_us.json" should be fileType.RESOURCE', () => {
+      assert.equal(
+        templateFile.getFileType('lang/en_us.json'),
+        templateFile.fileType.RESOURCE
+      );
+    });
+    it('"blockstates/[[ --block_name-- ]].json" should be fileType.RESOURCE', () => {
+      assert.equal(
+        templateFile.getFileType('blockstates/[[ --block_name-- ]].json'),
+        templateFile.fileType.RESOURCE
+      );
+    });
+    it('"models/block/[[ --block_name-- ]].json" should be fileType.RESOURCE', () => {
+      assert.equal(
+        templateFile.getFileType('models/block/[[ --block_name-- ]].json'),
+        templateFile.fileType.RESOURCE
+      );
+    });
+    it('"models/item/[[ --block_name-- ]].json" should be fileType.RESOURCE', () => {
+      assert.equal(
+        templateFile.getFileType('models/item/[[ --block_name-- ]].json'),
+        templateFile.fileType.RESOURCE
+      );
+    });
+    it('textures/block/[[ --block_name-- ]].png" should be fileType.RESOURCE', () => {
+      assert.equal(
+        templateFile.getFileType('textures/block/[[ --block_name-- ]].png'),
+        templateFile.fileType.RESOURCE
+      );
+    });
+    it('[[ --ModId-- ]]/loot_tables/blocks/[[ --block_name-- ]].json" should be fileType.DATA', () => {
+      assert.equal(
+        templateFile.getFileType(
+          '[[ --ModId-- ]]/loot_tables/blocks/[[ --block_name-- ]].json'
+        ),
+        templateFile.fileType.DATA
+      );
+    });
+    it('/loot_tables/blocks/[[ --block_name-- ]].json" should be fileType.DATA', () => {
+      assert.equal(
+        templateFile.getFileType(
+          '/loot_tables/blocks/[[ --block_name-- ]].json'
+        ),
+        templateFile.fileType.DATA
+      );
+    });
+    it('/minecraft/loot_tables/blocks/[[ --block_name-- ]].json" should be fileType.DATA_MINECRAFT', () => {
+      assert.equal(
+        templateFile.getFileType(
+          '/minecraft/loot_tables/blocks/[[ --block_name-- ]].json'
+        ),
+        templateFile.fileType.DATA_MINECRAFT
+      );
+    });
+  });
 });

@@ -9,13 +9,15 @@ import path from 'path';
 import { fileURLToPath, URL } from 'url';
 
 import configuration from './configuration.mjs';
-import fileUtils from './files.mjs';
 import fileFinderUtils from './file_finder.mjs';
+import fileUtils from './files.mjs';
+import template from './template.mjs';
 
 // General path
 const configPath = configuration.configPath;
 const modulePath = fileURLToPath(new URL('..', import.meta.url));
 const projectPath = process.cwd();
+const templatePath = template.templatePath;
 
 // Assets path
 const assetsPath =
@@ -53,6 +55,7 @@ export default {
   project: {
     config: configPath,
     path: projectPath,
+    template: templatePath,
   },
 
   // Assets specific

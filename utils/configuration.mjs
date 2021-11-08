@@ -32,12 +32,16 @@ const getConfigurationExtension = () => {
 const getConfigurationPath = () => {
   if (process.env) {
     if (
-      (process.env.npm_lifecycle_script || '').includes('minecraft-bedrock-utils') ||
+      (process.env.npm_lifecycle_script || '').includes(
+        'minecraft-bedrock-utils'
+      ) ||
       (process.env.npm_package_name || '').includes('minecraft-bedrock-utils')
     ) {
       return '.minecraft-bedrock-utils';
     } else if (
-      (process.env.npm_lifecycle_script || '').includes('minecraft-forge-utils') ||
+      (process.env.npm_lifecycle_script || '').includes(
+        'minecraft-forge-utils'
+      ) ||
       (process.env.npm_package_name || '').includes('minecraft-forge-utils')
     ) {
       return '.minecraft-forge-utils';
@@ -46,25 +50,12 @@ const getConfigurationPath = () => {
   return '.minecraft-utils-shared';
 };
 
-/**
- * @returns {string}
- */
-const getPackageFile = () => {
-  const file = path.join(process.cwd(), 'package.json');
-  if (fs.existsSync(file)) {
-    return file;
-  }
-  return '';
-};
-
 // eslint-disable-next-line prefer-const
 let configPath = path.join(process.cwd(), getConfigurationPath());
 // eslint-disable-next-line prefer-const
 let configExtension = getConfigurationExtension();
 // eslint-disable-next-line prefer-const
 let projectConfig = path.join(configPath, `project${configExtension}`);
-// eslint-disable-next-line prefer-const
-let packageFile = getPackageFile();
 
 /**
  * @param {string} file
