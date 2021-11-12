@@ -22,6 +22,7 @@ const type = Object.freeze({
   ROD: 'rod',
   SAPLING: 'sapling',
   SIMPLE: 'simple',
+  TEMPLATE: 'template',
   TEST: 'test',
   TRAP_DOOR: 'trap_door',
 });
@@ -35,6 +36,7 @@ typeIcon[type.GRASS] = '🌿';
 typeIcon[type.ORE] = '💎';
 typeIcon[type.ROD] = '➖';
 typeIcon[type.SIMPLE] = '🔲';
+typeIcon[type.TEMPLATE] = '📑';
 typeIcon[type.TEST] = '🧪';
 
 /**
@@ -78,6 +80,7 @@ const config = {
     BlockName: 'New custom block',
     SoundType: 'SoundType.METAL',
   },
+  template: '',
   description: '',
   variation: '',
   icon: 'new_custom_block',
