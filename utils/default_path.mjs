@@ -47,26 +47,34 @@ const minecraftForgeModPath = javaFiles
   ? fileFinderUtils.getModInWorkingPath(javaFiles)
   : '';
 
+// Relative Path converter
+const toRelativePath = (folderPath) => {
+  if (path.isAbsolute(folderPath)) {
+    return path.relative(projectPath, folderPath);
+  }
+  return folderPath;
+};
+
 export default {
   // General Paths
-  modulePath,
+  modulePath: toRelativePath(modulePath),
 
   // Project
   project: {
-    config: configPath,
-    path: projectPath,
-    template: templatePath,
+    config: toRelativePath(configPath),
+    path: toRelativePath(projectPath),
+    template: toRelativePath(templatePath),
   },
 
   // Assets specific
   assets: {
-    armor: path.join(assetsPath, 'armor'),
-    base: assetsPath,
-    init: path.join(assetsPath, 'init'),
-    items: path.join(assetsPath, 'items'),
-    logos: path.join(assetsPath, 'logos'),
-    misc: path.join(assetsPath, 'misc'),
-    models: path.join(assetsPath, 'models'),
+    armor: toRelativePath(path.join(assetsPath, 'armor')),
+    base: toRelativePath(assetsPath),
+    init: toRelativePath(path.join(assetsPath, 'init')),
+    items: toRelativePath(path.join(assetsPath, 'items')),
+    logos: toRelativePath(path.join(assetsPath, 'logos')),
+    misc: toRelativePath(path.join(assetsPath, 'misc')),
+    models: toRelativePath(path.join(assetsPath, 'models')),
   },
 
   // Manifests
@@ -115,9 +123,11 @@ export default {
 
   // Minecraft Forge specific
   forge: {
-    javaPath: path.join(projectPath, 'src', 'main', 'java'),
-    modPath: minecraftForgeModPath,
-    itemPath: fileUtils.returnIfFileExists(minecraftForgeModPath, 'item'),
+    javaPath: toRelativePath(path.join(projectPath, 'src', 'main', 'java')),
+    modPath: toRelativePath(minecraftForgeModPath, projectPath),
+    itemPath: toRelativePath(
+      fileUtils.returnIfFileExists(minecraftForgeModPath, 'item')
+    ),
   },
 
   // Test

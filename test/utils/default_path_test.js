@@ -5,6 +5,7 @@
  */
 
 import assert from 'assert';
+import path from 'path';
 
 import defaultPath from '../../utils/default_path.mjs';
 
@@ -16,7 +17,10 @@ describe('utils/default_path', () => {
   });
   describe('workingPath', () => {
     it('should be equal with process.cwd()', () => {
-      assert.equal(defaultPath.project.path, process.cwd());
+      assert.equal(
+        defaultPath.project.path,
+        path.relative(process.cwd(), process.cwd())
+      );
     });
   });
 });

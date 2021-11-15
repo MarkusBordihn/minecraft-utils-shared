@@ -35,6 +35,14 @@ const type = Object.freeze({
   UNKNOWN: 'unknown',
 });
 
+// Relative Path converter
+const toRelativePath = (folderPath) => {
+  if (path.isAbsolute(folderPath)) {
+    return path.relative(projectPath, folderPath);
+  }
+  return folderPath;
+};
+
 const gitAuthor =
   spawnSync('git', ['config', 'user.name'], {
     shell: true,
@@ -105,10 +113,10 @@ const config = {
       'New_cool_items',
   },
   forge: {
-    assetsPath: assetsPath,
+    assetsPath: toRelativePath(assetsPath),
     className: 'NewModClassName',
-    classPath: classPath,
-    dataPath: dataPath,
+    classPath: toRelativePath(classPath),
+    dataPath: toRelativePath(dataPath),
     description: 'This is the description for a new Forge mod',
     namespace: namespace,
     templatePath: '',
@@ -119,9 +127,9 @@ const config = {
     Author: author,
     ModId: 'new_project',
     ModName: 'minecraft-utils-shared',
-    assetsPath: assetsPath,
-    classPath: classPath,
-    dataPath: dataPath,
+    assetsPath: toRelativePath(assetsPath),
+    classPath: toRelativePath(classPath),
+    dataPath: toRelativePath(dataPath),
     packageNamespace: namespace,
   },
   name:
@@ -177,22 +185,19 @@ const normalize = (options, name, projectGameType) => {
 
   // Add Forge specific adjustments
   if (options['forge.namespace']) {
-    normalizedOptions.forge.classPath = path.join(
-      process.cwd(),
-      'src',
-      'main',
-      'java',
-      ...options['forge.namespace'].split('.')
+    normalizedOptions.forge.classPath = toRelativePath(
+      path.join(
+        process.cwd(),
+        'src',
+        'main',
+        'java',
+        ...options['forge.namespace'].split('.')
+      )
     );
   }
   if (options.id) {
-    normalizedOptions.forge.assetsPath = path.join(
-      process.cwd(),
-      'src',
-      'main',
-      'resources',
-      'assets',
-      options.id
+    normalizedOptions.forge.assetsPath = toRelativePath(
+      path.join(process.cwd(), 'src', 'main', 'resources', 'assets', options.id)
     );
   }
   if (!options.placeholder) {
@@ -211,9 +216,9 @@ const getPlaceholders = (options) => {
     Author: options.author,
     ModId: options.id,
     ModName: options.name,
-    assetsPath: options.forge.assetsPath || '',
-    classPath: options.forge.classPath || '',
-    dataPath: options.forge.dataPath || '',
+    assetsPath: toRelativePath(options.forge.assetsPath || ''),
+    classPath: toRelativePath(options.forge.classPath || ''),
+    dataPath: toRelativePath(options.forge.dataPath || ''),
     packageNamespace: options.forge.namespace,
   };
   return result;
