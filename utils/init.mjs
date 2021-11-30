@@ -18,11 +18,14 @@ import fileUtils from './files.mjs';
  * @returns {boolean}
  */
 const createWorkspace = (npmPackage, targetPath = defaultPath.project.path) => {
-  if (!targetPath) {
+  if (targetPath == null) {
     console.log(chalk.red('Invalid target path for creating workspace!'));
     return false;
+  } else if (!targetPath) {
+    console.log(chalk.red('Preparing workspace in current directory!'));
+  } else {
+    console.log(chalk.green('Preparing workspace at', targetPath));
   }
-  console.log(chalk.green('Preparing workspace at', targetPath));
 
   // Check if we got a valid targetPath
   if (fs.existsSync(targetPath)) {

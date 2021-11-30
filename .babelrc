@@ -8,7 +8,13 @@
         ]
       ],
       "plugins": [
-        "@babel/plugin-transform-modules-commonjs",
+        [
+          "@babel/plugin-transform-modules-commonjs",
+          {
+            "allowTopLevelThis": true,
+            "importInterop": "babel"
+          }
+        ],
         "babel-plugin-transform-import-meta",
         ["transform-import-extension", { "mjs": "cjs" }]
       ]
