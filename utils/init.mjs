@@ -23,6 +23,7 @@ const createWorkspace = (npmPackage, targetPath = defaultPath.project.path) => {
     return false;
   } else if (!targetPath) {
     console.log(chalk.red('Preparing workspace in current directory!'));
+    targetPath = './';
   } else {
     console.log(chalk.green('Preparing workspace at', targetPath));
   }

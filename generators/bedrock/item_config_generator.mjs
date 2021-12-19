@@ -50,7 +50,7 @@ const getItemConfig = (itemOptions = {}) => {
   if (options.attributes) {
     handleGeneralOptions(result, options);
   }
- 
+
   // Handle item type specific component options
   console.log('Item generator:', options);
   if (options.armor) {

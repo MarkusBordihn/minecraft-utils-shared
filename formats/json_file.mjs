@@ -8,8 +8,8 @@ import chalk from 'chalk';
 import fs from 'fs';
 
 /**
- * @param {string} file 
- * @returns 
+ * @param {string} file
+ * @returns
  */
 const read = (file) => {
   if (!fs.existsSync(file)) {
@@ -42,8 +42,8 @@ const write = (file, content = {}, options = {}) => {
 };
 
 /**
- * @param {string} file 
- * @param {Object} new_content 
+ * @param {string} file
+ * @param {Object} new_content
  */
 const add = (file, new_content) => {
   const existingContent = read(file);

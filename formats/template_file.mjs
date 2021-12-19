@@ -92,7 +92,7 @@ const parse = (file, placeholder = {}) => {
   fileEntryParts.forEach((filePart) => {
     if (filePart) {
       const fileName = filePart.split(/\r\n|\n|\r/, 1)[0].trim();
-      const patchParts = filePart.substr(
+      const patchParts = filePart.substring(
         filePart.indexOf(positionMarker) + positionMarker.length
       );
       const patchPart = patchParts.split(positionMarker);
@@ -121,7 +121,7 @@ const parse = (file, placeholder = {}) => {
           if (baseTemplatePath) {
             targetFile = path.join(
               baseTemplatePath,
-              path.join.apply(null, targetFile.substr(1).split('/'))
+              path.join.apply(null, targetFile.substring(1).split('/'))
             );
           }
         } else {
@@ -143,22 +143,22 @@ const getBaseTemplatePath = (template) => {
   const fullTemplatePath = path.resolve(template);
   const templatePath = fullTemplatePath.split(path.sep).join('/');
   if (templatePath.includes('/templates/java/')) {
-    result = templatePath.substr(
+    result = templatePath.substring(
       0,
       templatePath.indexOf('/templates/java/') + '/templates'.length
     );
   } else if (templatePath.includes('/templates/resources/')) {
-    result = templatePath.substr(
+    result = templatePath.substring(
       0,
       templatePath.indexOf('/templates/resources/') + '/templates'.length
     );
   } else if (templatePath.includes('/templates/src/')) {
-    result = templatePath.substr(
+    result = templatePath.substring(
       0,
       templatePath.indexOf('/templates/src/') + '/templates'.length
     );
   } else if (templatePath.includes('/templates/')) {
-    result = templatePath.substr(
+    result = templatePath.substring(
       0,
       templatePath.indexOf('/templates/') + '/templates'.length
     );
@@ -176,7 +176,7 @@ const getBaseTemplatePath = (template) => {
 const getFileType = (fileName) => {
   // Normalize file path, if needed
   if (fileName.startsWith('/')) {
-    fileName = fileName.substr(1);
+    fileName = fileName.substring(1);
   }
   if (fileName.startsWith('[[ --ModId-- ]]/')) {
     fileName = fileName.replace('[[ --ModId-- ]]/', '');
