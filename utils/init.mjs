@@ -71,17 +71,30 @@ const createWorkspace = (npmPackage, targetPath = defaultPath.project.path) => {
     }
   }
 
-  console.log(chalk.green('Copying additional files ...'));
   // Add git related files if not exists.
-  fileUtils.copyFileIfNotExists(
-    path.join(defaultPath.assets.init, '.gitattributes'),
-    path.join(targetPath, '.gitattributes')
+  const gitAttributesFile = path.join(
+    defaultPath.assets.init,
+    '.gitattributes'
   );
-  fileUtils.copyFileIfNotExists(
-    path.join(defaultPath.assets.init, '.gitignore'),
-    path.join(targetPath, '.gitignore')
-  );
+  if (fs.existsSync(gitAttributesFile)) {
+    console.log(
+      chalk.green('Copying .gitattributes files from', gitAttributesFile)
+    );
+    fileUtils.copyFileIfNotExists(
+      path.join(gitAttributesFile),
+      path.join(targetPath, '.gitattributes')
+    );
+  }
+  const gitIgnoreFile = path.join(defaultPath.assets.init, '.gitignore');
+  if (fs.existsSync(gitIgnoreFile)) {
+    console.log(chalk.green('Copying .gitignore file from', gitIgnoreFile));
+    fileUtils.copyFileIfNotExists(
+      path.join(gitIgnoreFile),
+      path.join(targetPath, '.gitignore')
+    );
+  }
 
+  // Install pre-defined package, if defined!
   if (npmPackage) {
     if (targetPath != defaultPath.project.path) {
       console.info(
