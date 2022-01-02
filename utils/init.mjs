@@ -92,6 +92,16 @@ const createWorkspace = (npmPackage, targetPath = defaultPath.project.path) => {
       path.join(gitIgnoreFile),
       path.join(targetPath, '.gitignore')
     );
+  } else {
+    // Try to copy the .npmignore file instead.
+    const npmIgnoreFile = path.join(defaultPath.assets.init, '.npmignore');
+    if (fs.existsSync(npmIgnoreFile)) {
+      console.log(chalk.green('Copying .npmignore file from', gitIgnoreFile));
+      fileUtils.copyFileIfNotExists(
+        path.join(npmIgnoreFile),
+        path.join(targetPath, '.gitignore')
+      );
+    }
   }
 
   // Install pre-defined package, if defined!

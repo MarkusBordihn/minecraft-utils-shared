@@ -26,13 +26,14 @@
     "mojang",
     "mynamespace",
     "nodir",
+    "npmignore",
     "prebuild",
     "universalify",
     "uuidv",
     "vendorname",
     "wekyb",
     "wrappy"
-  ],
+],
   "cSpell.ignorePaths": [
     ".prettierrc",
     "*.yml",
