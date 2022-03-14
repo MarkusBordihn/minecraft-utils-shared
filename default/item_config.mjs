@@ -6,8 +6,9 @@
 
 import component from './component.mjs';
 import normalizer from './../helper/normalizer.mjs';
+import placeholder from './../utils/placeholder.mjs';
 
-const configVersion = '0.0.1';
+const configVersion = '1.0.0';
 
 /**
  * @enum
@@ -93,7 +94,7 @@ const config = {
   id: 'my_item:new_custom_item',
   itemName: 'new_custom_item',
   type: type.CUSTOM,
-  name: 'New custom item',
+  name: 'New Custom Item',
   namespace: namespace,
   bedrock: {
     formatVersion: '1.16.1',
@@ -102,11 +103,14 @@ const config = {
     className: '',
   },
   placeholder: {
-    CreativeTab: 'TAB_MISC',
-    ITEM_NAME: 'NEW_CUSTOM_ITEM',
     ItemClassName: '',
+    ITEMNAME: 'NEWCUSTOMITEM',
+    ITEM_NAME: 'NEW_CUSTOM_ITEM',
+    ItemName: 'NewCustomItem',
+    itemName: 'newCustomItem',
     item_name: 'new_custom_item',
-    ItemName: 'New custom item',
+    itemname: 'newcustomitem',
+    CreativeTab: 'TAB_MISC',
   },
   template: '',
   description: '',
@@ -229,12 +233,16 @@ const normalize = (options, name, itemType, variation) => {
  * @returns
  */
 const getPlaceholders = (options) => {
+  const name = placeholder.getPlaceholderNames(options.name);
   const result = {
-    CreativeTab: creativeTab.MISC,
-    ItemName: options.name,
-    ITEM_NAME: options.itemName.toUpperCase(),
-    item_name: options.itemName.toLowerCase(),
     ItemClassName: options.forge.className,
+    ITEMNAME: name.PLACEHOLDERNAME,
+    ITEM_NAME: name.PLACEHOLDER_NAME,
+    ItemName: name.PlaceholderName,
+    itemName: name.placeholderName,
+    item_name: name.placeholder_name,
+    itemname: name.placeholdername,
+    CreativeTab: creativeTab.MISC,
   };
   return result;
 };

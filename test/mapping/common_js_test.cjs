@@ -18,12 +18,14 @@ const {
   gradleUtils,
   initUtils,
   normalizeHelper,
+  placeholderUtils,
   templateUtils,
   translationUtils,
   utilsVersion,
   uuidUtils,
 } = require('../../index.cjs');
 
+/* eslint-disable no-undef */
 describe('CommonJS Mapping', () => {
   describe('Object', () => {
     it('should be ok', () => {
@@ -61,6 +63,9 @@ describe('CommonJS Mapping', () => {
     });
     it('normalizeHelper', () => {
       assert.equal(typeof normalizeHelper, 'object');
+    });
+    it('placeholderUtils', () => {
+      assert.equal(typeof placeholderUtils, 'object');
     });
     it('templateUtils', () => {
       assert.equal(typeof templateUtils, 'object');

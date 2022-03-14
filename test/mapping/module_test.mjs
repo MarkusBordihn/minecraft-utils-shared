@@ -17,12 +17,14 @@ import minecraftUtilsShared, {
   gradleUtils,
   initUtils,
   normalizeHelper,
+  placeholderUtils,
   templateUtils,
   translationUtils,
   utilsVersion,
   uuidUtils,
 } from '../../index.mjs';
 
+/* eslint-disable no-undef */
 describe('Module Mapping', () => {
   describe('Object', () => {
     it('should be ok', () => {
@@ -60,6 +62,9 @@ describe('Module Mapping', () => {
     });
     it('normalizeHelper', () => {
       assert.equal(typeof normalizeHelper, 'object');
+    });
+    it('placeholderUtils', () => {
+      assert.equal(typeof placeholderUtils, 'object');
     });
     it('templateUtils', () => {
       assert.equal(typeof templateUtils, 'object');

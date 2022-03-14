@@ -20,6 +20,7 @@ import resourceConfigGenerator from './generators/bedrock/resource_config_genera
 import template from './utils/template.mjs';
 import translation from './utils/translation.mjs';
 import uuid from './utils/uuid.mjs';
+import placeholder from './utils/placeholder.mjs';
 
 const defaultConfig = {
   block: blockConfig,
@@ -47,6 +48,7 @@ export default {
   gradleUtils: gradle,
   initUtils: init,
   normalizeHelper: normalizer,
+  placeholderUtils: placeholder,
   templateUtils: template,
   translationUtils: translation,
   utilsVersion,
@@ -65,6 +67,7 @@ export {
   gradle as gradleUtils,
   init as initUtils,
   normalizer as normalizeHelper,
+  placeholder as placeholderUtils,
   template as templateUtils,
   translation as translationUtils,
   utilsVersion,

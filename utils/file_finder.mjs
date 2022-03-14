@@ -132,7 +132,7 @@ const getJavaFilesInWorkingPath = () => {
  * @param {Array<string>} java_files
  * @returns {string}
  */
- const getModInSearchPath = (search_path, java_files) => {
+const getModInSearchPath = (search_path, java_files) => {
   const relevantJavaFiles = java_files || getJavaFilesInSearchPath(search_path);
   for (const file of relevantJavaFiles || []) {
     const javaFileContent = javaFile.read(file);

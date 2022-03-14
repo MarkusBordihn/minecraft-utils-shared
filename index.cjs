@@ -15,6 +15,7 @@ const init = require('./dist/utils/init.cjs');
 const itemConfig = require('./dist/default/item_config.cjs');
 const itemConfigGenerator = require('./dist/generators/bedrock/item_config_generator.cjs');
 const normalizer = require('./dist/helper/normalizer.cjs');
+const placeholder = require('./dist/utils/placeholder.cjs');
 const projectConfig = require('./dist/default/project_config.cjs');
 const resourceConfigGenerator = require('./dist/generators/bedrock/resource_config_generator.cjs');
 const template = require('./dist/utils/template.cjs');
@@ -40,6 +41,7 @@ module.exports = {
   gradleUtils: gradle.default,
   initUtils: init.default,
   normalizeHelper: normalizer.default,
+  placeholderUtils: placeholder.default,
   templateUtils: template.default,
   translationUtils: translation.default,
   uuidUtils: uuid.default,

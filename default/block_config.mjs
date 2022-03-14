@@ -6,8 +6,9 @@
 
 import component from './component.mjs';
 import normalizer from './../helper/normalizer.mjs';
+import placeholder from './../utils/placeholder.mjs';
 
-const configVersion = '0.0.1';
+const configVersion = '1.0.0';
 
 /**
  * @enum
@@ -64,7 +65,7 @@ const config = {
   id: 'my_block:new_custom_block',
   blockName: 'new_custom_block',
   type: type.CUSTOM,
-  name: 'New custom block',
+  name: 'New Custom Block',
   namespace: namespace,
   bedrock: {
     formatVersion: '1.16.1',
@@ -73,11 +74,14 @@ const config = {
     className: '',
   },
   placeholder: {
-    CreativeTab: 'TAB_MISC',
-    BLOCK_NAME: 'NEW_CUSTOM_BLOCK',
     BlockClassName: '',
+    BLOCKNAME: 'NEWCUSTOMBLOCK',
+    BLOCK_NAME: 'NEW_CUSTOM_BLOCK',
+    BlockName: 'NewCustomBlock',
+    blockName: 'newCustomBlock',
     block_name: 'new_custom_block',
-    BlockName: 'New custom block',
+    blockname: 'newcustomblock',
+    CreativeTab: 'TAB_MISC',
     SoundType: 'SoundType.METAL',
   },
   template: '',
@@ -171,12 +175,16 @@ const normalize = (options, name, blockType, variation) => {
  * @returns
  */
 const getPlaceholders = (options) => {
+  const name = placeholder.getPlaceholderNames(options.name);
   const result = {
-    CreativeTab: creativeTab.MISC,
-    BlockName: options.name,
-    BLOCK_NAME: options.blockName.toUpperCase(),
-    block_name: options.blockName.toLowerCase(),
     BlockClassName: options.forge.className,
+    BLOCKNAME: name.PLACEHOLDERNAME,
+    BLOCK_NAME: name.PLACEHOLDER_NAME,
+    BlockName: name.PlaceholderName,
+    blockName: name.placeholderName,
+    block_name: name.placeholder_name,
+    blockname: name.placeholdername,
+    CreativeTab: creativeTab.MISC,
     SoundType: options.attributes.soundType,
   };
   return result;
