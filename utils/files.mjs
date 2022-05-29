@@ -117,16 +117,19 @@ const renameFileIfExists = (oldPath, newPath, overwrite = false) => {
 };
 
 /**
+ * @param {string} search_path
  * @param {string} pattern
  * @param {string} from
  * @param {string} to
  * @returns {Array<string>}
  */
-const replaceInFiles = (pattern, from, to) => {
+const replaceInFiles = (search_path = process.cwd(), pattern, from, to) => {
+  const searchPath = path.resolve(search_path);
   const relevantFiles = [];
   const result = [];
   glob
     .sync(pattern, {
+      cwd: searchPath,
       nodir: true,
     })
     .map((file) => {
@@ -168,12 +171,13 @@ const returnIfFileExists = (filePath, file) => {
 };
 
 /**
+ * @param {string} search_path
  * @param {string} pattern
  * @param {string} name
  * @param {string} to
  */
-const setPlaceholder = (pattern, name, to) => {
-  replaceInFiles(pattern, `[[ --${name}-- ]]`, to);
+const setPlaceholder = (search_path = process.cwd(), pattern, name, to) => {
+  replaceInFiles(search_path, pattern, `[[ --${name}-- ]]`, to);
 };
 
 export default {

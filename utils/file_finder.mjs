@@ -114,7 +114,8 @@ const getJavaFilesInSearchPath = (search_path = process.cwd()) => {
   const result = [];
   // Search for java files.
   glob
-    .sync(path.join(searchPath, '**/*.java'), {
+    .sync('**/*.java', {
+      cwd: searchPath,
       nodir: true,
     })
     .map((file) => {
