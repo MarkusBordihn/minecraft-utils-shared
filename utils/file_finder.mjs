@@ -21,13 +21,18 @@ const javaSrcPath = path.join(workingPath, 'src', 'main', 'java');
 const getManifestsInSearchPath = (search_path = process.cwd()) => {
   const searchPath = path.resolve(search_path);
   const result = [];
+  if (!fs.existsSync(searchPath)) {
+    console.error('Unable to find search path:', searchPath);
+    return result;
+  }
   // If we found a manifest.json in root we will use this.
   if (fs.existsSync(path.join(searchPath, 'manifest.json'))) {
     return [path.join(searchPath, 'manifest.json')];
   }
   // Search for alternative manifest files.
   glob
-    .sync(path.join(searchPath, '**/manifest.json'), {
+    .sync('**/manifest.json', {
+      cwd: searchPath,
       nodir: true,
     })
     .map((file) => {

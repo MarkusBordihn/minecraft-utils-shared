@@ -5,7 +5,7 @@
       "reason": "Incompatible"
     },
     "execa": {
-      "versions": "6.0.0",
+      "versions": "6.1.0",
       "reason": "Incompatible"
     }
   }

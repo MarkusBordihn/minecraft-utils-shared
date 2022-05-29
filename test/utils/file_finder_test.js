@@ -6,23 +6,23 @@
 import assert from 'assert';
 import path from 'path';
 
-import manifest from '../../utils/file_finder.mjs';
+import file_finder from '../../utils/file_finder.mjs';
 
-describe('utils/manifest', () => {
+describe('utils/file_finder', () => {
   describe('Object', () => {
     it('should be ok', () => {
-      assert.equal(typeof manifest, 'object');
+      assert.equal(typeof file_finder, 'object');
     });
   });
   describe('getManifestsInSearchPath()', () => {
     it('should find two files', () => {
-      const manifests = manifest.getManifestsInSearchPath(
+      const manifests = file_finder.getManifestsInSearchPath(
         path.join('test_files')
       );
       assert.equal(manifests.length, '2');
     });
     it('should find one file', () => {
-      const manifests = manifest.getManifestsInSearchPath(
+      const manifests = file_finder.getManifestsInSearchPath(
         path.join('test_files', 'manifest', 'folder1')
       );
       assert.equal(manifests.length, '1');
