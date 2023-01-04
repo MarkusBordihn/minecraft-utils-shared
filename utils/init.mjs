@@ -77,30 +77,38 @@ const createWorkspace = (npmPackage, targetPath = defaultPath.project.path) => {
     '.gitattributes'
   );
   if (fs.existsSync(gitAttributesFile)) {
-    console.log(
-      chalk.green('Copying .gitattributes files from', gitAttributesFile)
-    );
-    fileUtils.copyFileIfNotExists(
-      path.join(gitAttributesFile),
-      path.join(targetPath, '.gitattributes')
-    );
+    const targetFile = path.join(targetPath, '.gitattributes');
+    if (fs.existsSync(targetFile)) {
+      console.log(
+        chalk.orange('Skipping existing .gitattributes at', targetFile)
+      );
+    } else {
+      console.log(
+        chalk.green('Copying .gitattributes files from', gitAttributesFile)
+      );
+      fileUtils.copyFileIfNotExists(path.join(gitAttributesFile), targetFile);
+    }
   }
   const gitIgnoreFile = path.join(defaultPath.assets.init, '.gitignore');
   if (fs.existsSync(gitIgnoreFile)) {
-    console.log(chalk.green('Copying .gitignore file from', gitIgnoreFile));
-    fileUtils.copyFileIfNotExists(
-      path.join(gitIgnoreFile),
-      path.join(targetPath, '.gitignore')
-    );
-  } else {
-    // Try to copy the .npmignore file instead.
-    const npmIgnoreFile = path.join(defaultPath.assets.init, '.npmignore');
-    if (fs.existsSync(npmIgnoreFile)) {
+    const targetFile = path.join(targetPath, '.gitignore');
+    if (fs.existsSync(targetFile)) {
+      console.log(chalk.orange('Skipping existing .gitignore at', targetFile));
+    } else {
+      console.log(chalk.green('Copying .gitignore file from', gitIgnoreFile));
+      fileUtils.copyFileIfNotExists(path.join(gitIgnoreFile), targetFile);
+    }
+  }
+
+  // Add npm ignore file, if needed.
+  const npmIgnoreFile = path.join(defaultPath.assets.init, '.npmignore');
+  if (fs.existsSync(npmIgnoreFile)) {
+    const targetFile = path.join(targetPath, '.npmignore');
+    if (fs.existsSync(targetFile)) {
+      console.log(chalk.orange('Skipping existing .npmignore at', targetFile));
+    } else {
       console.log(chalk.green('Copying .npmignore file from', gitIgnoreFile));
-      fileUtils.copyFileIfNotExists(
-        path.join(npmIgnoreFile),
-        path.join(targetPath, '.gitignore')
-      );
+      fileUtils.copyFileIfNotExists(path.join(npmIgnoreFile), targetFile);
     }
   }
 

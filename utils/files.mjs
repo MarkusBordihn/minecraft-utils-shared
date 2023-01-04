@@ -133,7 +133,7 @@ const replaceInFiles = (search_path = process.cwd(), pattern, from, to) => {
       nodir: true,
     })
     .map((file) => {
-      relevantFiles.push(path.resolve(file));
+      relevantFiles.push(path.resolve(searchPath, file));
     });
   if (relevantFiles.length <= 0) {
     return result;

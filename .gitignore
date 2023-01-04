@@ -1,3 +1,4 @@
+# General
 *.stackdump
 *.clip
 .DS_Store
@@ -12,11 +13,12 @@ runtime
 temp
 tmp
 
-# npm
+# NodeJs
 node_modules
 npm-debug.log
 
-# gradle
+# Gradle
 build
+run
 .gradle
 *local.properties
