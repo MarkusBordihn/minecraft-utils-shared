@@ -10,9 +10,11 @@ Thumbs.db
 coverage
 dist
 runtime
-src
 temp
 tmp
+
+# Local tests
+src/main/
 
 # NodeJs
 node_modules
