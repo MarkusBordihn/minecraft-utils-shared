@@ -23,4 +23,9 @@ describe('utils/default_path', () => {
       );
     });
   });
+  describe('javaFiles', () => {
+    it('there should be no javaFiles', () => {
+      assert.equal(defaultPath.javaPath, undefined);
+    });
+  });
 });

@@ -115,22 +115,22 @@ const processTemplateFile = (template, placeholder, targetPath = '') => {
         fs.ensureDirSync(path.dirname(filePath));
         fs.copyFileSync(definition.copy, filePath);
       }
-    } else {
-      if (definition.create) {
-        // Create new file
-        if (fs.existsSync(filePath)) {
-          console.info(
-            chalk.red('[Skipping Create]'),
-            fileName,
-            'already exists.'
-          );
-        } else {
-          console.info(chalk.green('[Create]'), fileName);
-          content = definition.code;
-        }
-      } else if (filePath && fs.existsSync(filePath)) {
-        // Patch existing files according the "after" or "before" placeholder.
-        // We will only processing the file if the code is not already included!
+    } else if (definition.create) {
+      // Create new file
+      if (fs.existsSync(filePath)) {
+        console.info(
+          chalk.red('[Skipping Create]'),
+          fileName,
+          'already exists.'
+        );
+      } else {
+        console.info(chalk.green('[Create]'), fileName);
+        content = definition.code;
+      }
+    } else if (definition.before || definition.after) {
+      // Patch existing files according the "after" or "before" placeholder.
+      // We will only processing the file if the code is not already included!
+      if (filePath && fs.existsSync(filePath)) {
         content = fs.readFileSync(filePath, 'utf-8');
         if (!content) {
           console.error(
@@ -187,10 +187,23 @@ const processTemplateFile = (template, placeholder, targetPath = '') => {
             );
           }
         }
+      } else {
+        // Show an error, if the file doesn't exists under the location!
+        console.error(
+          chalk.red('[Skipping after/before]'),
+          fileName,
+          'file does not exists at',
+          filePath
+        );
       }
-      if (content) {
-        fs.outputFileSync(filePath, content);
-      }
+    } else {
+      // Show an general error for any unknown template option.
+      console.warn(
+        chalk.yellow('[?] Unsupported template option, skipping', fileName, '!')
+      );
+    }
+    if (content) {
+      fs.outputFileSync(filePath, content);
     }
   });
 };

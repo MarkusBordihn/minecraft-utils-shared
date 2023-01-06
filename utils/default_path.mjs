@@ -8,13 +8,36 @@ import os from 'os';
 import path from 'path';
 import { fileURLToPath, URL } from 'url';
 
-import configuration from './configuration.mjs';
 import fileFinderUtils from './file_finder.mjs';
 import fileUtils from './files.mjs';
 import template from './template.mjs';
 
+/**
+ * @returns {string}
+ */
+const getConfigurationPath = () => {
+  if (process.env) {
+    if (
+      (process.env.npm_lifecycle_script || '').includes(
+        'minecraft-bedrock-utils'
+      ) ||
+      (process.env.npm_package_name || '').includes('minecraft-bedrock-utils')
+    ) {
+      return '.minecraft-bedrock-utils';
+    } else if (
+      (process.env.npm_lifecycle_script || '').includes(
+        'minecraft-forge-utils'
+      ) ||
+      (process.env.npm_package_name || '').includes('minecraft-forge-utils')
+    ) {
+      return '.minecraft-forge-utils';
+    }
+  }
+  return '.minecraft-utils-shared';
+};
+
 // General path
-const configPath = configuration.configPath;
+const configPath = path.join(process.cwd(), getConfigurationPath());
 const modulePath = fileURLToPath(new URL('..', import.meta.url));
 const projectPath = process.cwd();
 const templatePath = template.templatePath;
@@ -43,13 +66,25 @@ const minecraftBedrockLocalStatePath = fileUtils.returnIfFileExists(
 );
 
 // Minecraft Forge specific paths
+const minecraftForgeModMainClassFile = javaFiles
+  ? fileFinderUtils.getModMainClassInWorkingPath(javaFiles)
+  : '';
 const minecraftForgeModPath = javaFiles
   ? fileFinderUtils.getModInWorkingPath(javaFiles)
   : '';
+const minecraftForgeResourcePath = fileUtils.returnIfFileExists(
+  projectPath,
+  path.join('src', 'main', 'resources')
+);
+console.info(minecraftForgeResourcePath);
+const minecraftForgeModDefinition = fileUtils.returnIfFileExists(
+  minecraftForgeResourcePath,
+  path.join('META-INF', 'mods.toml')
+);
 
 // Relative Path converter
 const toRelativePath = (folderPath) => {
-  if (path.isAbsolute(folderPath)) {
+  if (folderPath && path.isAbsolute(folderPath)) {
     return path.relative(projectPath, folderPath);
   }
   return folderPath;
@@ -114,17 +149,28 @@ export default {
       ),
     },
     behaviorPack: manifests
-      ? fileFinderUtils.getBehaviorPackInWorkingPath(manifests)
+      ? fileFinderUtils.getBehaviorPackInWorkingPath(manifests) || ''
       : '',
     resourcePack: manifests
-      ? fileFinderUtils.getResourcePackInWorkingPath(manifests)
+      ? fileFinderUtils.getResourcePackInWorkingPath(manifests) || ''
       : '',
   },
 
   // Minecraft Forge specific
   forge: {
     javaPath: toRelativePath(path.join(projectPath, 'src', 'main', 'java')),
+    resourcePath: toRelativePath(
+      path.join(projectPath, 'src', 'main', 'resources')
+    ),
+    modFile: toRelativePath(minecraftForgeModDefinition, projectPath),
     modPath: toRelativePath(minecraftForgeModPath, projectPath),
+    modMainClassFile: toRelativePath(
+      minecraftForgeModMainClassFile,
+      projectPath
+    ),
+    blockPath: toRelativePath(
+      fileUtils.returnIfFileExists(minecraftForgeModPath, 'block')
+    ),
     itemPath: toRelativePath(
       fileUtils.returnIfFileExists(minecraftForgeModPath, 'item')
     ),

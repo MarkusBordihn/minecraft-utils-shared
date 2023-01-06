@@ -1,15 +1,16 @@
 # General
-*.stackdump
 *.clip
+*.stackdump
 .DS_Store
 .c9
 .nyc_output
 .project
 .settings
-dist
 Thumbs.db
 coverage
+dist
 runtime
+src
 temp
 tmp
 

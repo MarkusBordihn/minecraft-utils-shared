@@ -22,10 +22,10 @@ const createWorkspace = (npmPackage, targetPath = defaultPath.project.path) => {
     console.log(chalk.red('Invalid target path for creating workspace!'));
     return false;
   } else if (!targetPath) {
-    console.log(chalk.red('Preparing workspace in current directory!'));
+    console.log(chalk.red('⚠️ Preparing workspace in current directory!'));
     targetPath = './';
   } else {
-    console.log(chalk.green('Preparing workspace at', targetPath));
+    console.log(chalk.green('⚠️ Preparing workspace at', targetPath));
   }
 
   // Check if we got a valid targetPath
@@ -80,7 +80,7 @@ const createWorkspace = (npmPackage, targetPath = defaultPath.project.path) => {
     const targetFile = path.join(targetPath, '.gitattributes');
     if (fs.existsSync(targetFile)) {
       console.log(
-        chalk.orange('Skipping existing .gitattributes at', targetFile)
+        chalk.yellow('Skipping existing .gitattributes at', targetFile)
       );
     } else {
       console.log(
@@ -93,7 +93,7 @@ const createWorkspace = (npmPackage, targetPath = defaultPath.project.path) => {
   if (fs.existsSync(gitIgnoreFile)) {
     const targetFile = path.join(targetPath, '.gitignore');
     if (fs.existsSync(targetFile)) {
-      console.log(chalk.orange('Skipping existing .gitignore at', targetFile));
+      console.log(chalk.yellow('Skipping existing .gitignore at', targetFile));
     } else {
       console.log(chalk.green('Copying .gitignore file from', gitIgnoreFile));
       fileUtils.copyFileIfNotExists(path.join(gitIgnoreFile), targetFile);
@@ -105,7 +105,7 @@ const createWorkspace = (npmPackage, targetPath = defaultPath.project.path) => {
   if (fs.existsSync(npmIgnoreFile)) {
     const targetFile = path.join(targetPath, '.npmignore');
     if (fs.existsSync(targetFile)) {
-      console.log(chalk.orange('Skipping existing .npmignore at', targetFile));
+      console.log(chalk.yellow('Skipping existing .npmignore at', targetFile));
     } else {
       console.log(chalk.green('Copying .npmignore file from', gitIgnoreFile));
       fileUtils.copyFileIfNotExists(path.join(npmIgnoreFile), targetFile);

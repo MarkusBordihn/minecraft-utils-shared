@@ -169,21 +169,37 @@ describe('format/TemplateFile', () => {
         templateFile.fileType.DATA
       );
     });
-    it('/loot_tables/blocks/[[ --block_name-- ]].json" should be fileType.DATA', () => {
+    it('loot_tables/blocks/[[ --block_name-- ]].json" should be fileType.DATA', () => {
       assert.equal(
         templateFile.getFileType(
-          '/loot_tables/blocks/[[ --block_name-- ]].json'
+          'loot_tables/blocks/[[ --block_name-- ]].json'
         ),
         templateFile.fileType.DATA
       );
     });
-    it('/minecraft/loot_tables/blocks/[[ --block_name-- ]].json" should be fileType.DATA_MINECRAFT', () => {
+    it('minecraft/loot_tables/blocks/[[ --block_name-- ]].json" should be fileType.DATA_MINECRAFT', () => {
       assert.equal(
         templateFile.getFileType(
-          '/minecraft/loot_tables/blocks/[[ --block_name-- ]].json'
+          'minecraft/loot_tables/blocks/[[ --block_name-- ]].json'
         ),
         templateFile.fileType.DATA_MINECRAFT
       );
+      it('minecraft/tags/blocks/mineable/pickaxe.json" should be fileType.DATA_MINECRAFT', () => {
+        assert.equal(
+          templateFile.getFileType(
+            'minecraft/tags/blocks/mineable/pickaxe.json'
+          ),
+          templateFile.fileType.DATA_MINECRAFT
+        );
+      });
+      it('minecraft/tags/blocks/needs_iron_tool.json" should be fileType.DATA_MINECRAFT', () => {
+        assert.equal(
+          templateFile.getFileType(
+            'minecraft/tags/blocks/needs_iron_tool.json'
+          ),
+          templateFile.fileType.DATA_MINECRAFT
+        );
+      });
     });
   });
 });

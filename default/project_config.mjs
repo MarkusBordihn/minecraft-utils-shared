@@ -9,7 +9,9 @@ import path from 'path';
 import { spawnSync } from 'child_process';
 
 import component from './component.mjs';
+import defaultPath from './../utils/default_path.mjs';
 import normalizer from './../helper/normalizer.mjs';
+import tomlFile from './../formats/toml_file.mjs';
 import translation from './../utils/translation.mjs';
 
 const configVersion = '0.0.1';
@@ -56,29 +58,83 @@ const projectId = 'new_project';
 const projectPath = process.cwd();
 const possibleNamespacePrefix =
   translation.language.substring(0, 2).toLocaleLowerCase() || 'net';
+const classPath = defaultPath.forge.modPath
+  ? defaultPath.forge.modPath
+  : path.join(projectPath, ...'src/main/java/net/example'.split('/'));
+
+// Get java project className
+const className = defaultPath.forge.modMainClassFile
+  ? path.parse(defaultPath.forge.modMainClassFile).name
+  : 'NewModClassName';
+
+// Get java project namespace from java path.
+let namespace = '';
+if (defaultPath.forge.javaPath && defaultPath.forge.modPath) {
+  namespace = defaultPath.forge.modPath
+    .replace(defaultPath.forge.javaPath, '')
+    .replace(/[\\/\\]+/gm, '.');
+  if (namespace.startsWith('.')) {
+    namespace = namespace.slice(1);
+  }
+} else {
+  namespace =
+    process.env.npm_package_config_project_namespace ||
+    `${possibleNamespacePrefix}.${normalizer.normalizeModId(
+      author
+    )}.${projectId}` ||
+    'net.example';
+}
+
+// Get mod details from mods.toml, if any.
+let modDescription = '';
+let modId = projectId;
+let modName = 'minecraft-utils-shared';
+if (defaultPath.forge.modFile) {
+  const modDefinitionFile = tomlFile.read(defaultPath.forge.modFile);
+  if (
+    modDefinitionFile &&
+    modDefinitionFile.mods &&
+    modDefinitionFile.mods.length == 1
+  ) {
+    const modDefinition = modDefinitionFile.mods[0];
+    if (modDefinition.description) {
+      modDescription = modDefinition.description;
+    }
+    if (modDefinition.modId) {
+      modId = modDefinition.modId;
+    }
+    if (modDefinition.displayName) {
+      modName = modDefinition.displayName;
+    }
+  }
+}
+
+// Assets and data path
 const assetsPath = path.join(
   projectPath,
-  ...'src/main/resources/assets/new_project'.split('/')
+  ...('src/main/resources/assets/' + modId || projectId).split('/')
 );
-const classPath = path.join(
+const dataPath = path.join(
   projectPath,
-  ...'src/main/java/net/example'.split('/')
+  ...('src/main/resources/data/' + modId || projectId).split('/')
 );
-const dataPath = path.join(projectPath, 'src', 'main', 'resources', 'data');
-const namespace =
-  process.env.npm_package_config_project_namespace ||
-  `${possibleNamespacePrefix}.${normalizer.normalizeModId(
-    author
-  )}.${projectId}` ||
-  'net.example';
+
+// GameType and Project type
+const projectGameType = defaultPath.forge.modFile
+  ? gameType.FORGE
+  : gameType.UNKNOWN;
+const projectType =
+  defaultPath.forge.modFile && defaultPath.forge.javaPath
+    ? type.MOD
+    : type.UNKNOWN;
 
 const config = {
   author: author,
   id: projectId,
   component: component.type.PROJECT,
   configVersion: configVersion,
-  gameType: gameType.UNKNOWN,
-  type: type.UNKNOWN,
+  gameType: projectGameType,
+  type: projectType,
   license: 'MIT',
   bedrock: {
     behaviorPack: {
@@ -114,10 +170,10 @@ const config = {
   },
   forge: {
     assetsPath: toRelativePath(assetsPath),
-    className: 'NewModClassName',
+    className: className,
     classPath: toRelativePath(classPath),
     dataPath: toRelativePath(dataPath),
-    description: 'This is the description for a new Forge mod',
+    description: modDescription,
     namespace: namespace,
     templatePath: '',
     templatesPath: '',
@@ -125,8 +181,8 @@ const config = {
   },
   placeholder: {
     Author: author,
-    ModId: 'new_project',
-    ModName: 'minecraft-utils-shared',
+    ModId: modId,
+    ModName: modName,
     assetsPath: toRelativePath(assetsPath),
     classPath: toRelativePath(classPath),
     dataPath: toRelativePath(dataPath),

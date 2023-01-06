@@ -1,6 +1,6 @@
 {
   "name": "minecraft-utils-shared",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "Shared utils for Minecraft Bedrock / Forge development related utilities.",
   "preferGlobal": true,
   "main": "./index.cjs",
@@ -61,11 +61,12 @@
     "glob": "^8.0.3",
     "path": "^0.12.7",
     "rimraf": "^3.0.2",
+    "toml": "^3.0.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
-    "@babel/core": "^7.20.7",
+    "@babel/core": "^7.20.12",
     "@babel/plugin-external-helpers": "^7.18.6",
     "@babel/plugin-transform-modules-commonjs": "^7.20.11",
     "@babel/preset-env": "^7.20.2",
@@ -95,6 +96,8 @@
     "lint:fix": "eslint . --fix",
     "test": "npm run test:units && npm run test:mapping",
     "test:units": "mocha 'test/**/*_test.js' --recursive",
+    "test:file_finder": "mocha 'test/utils/file_finder_test.js' --recursive",
+    "test:default_path": "mocha 'test/utils/default_path_test.js' --recursive",
     "pretest:mapping": "npm run build",
     "test:mapping": "mocha 'test/mapping/*_test.*' --recursive",
     "sync": "git pull && npm install && npm update && npm prune && npm audit fix",

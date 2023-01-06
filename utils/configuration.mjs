@@ -92,13 +92,16 @@ const loadDefaultConfig = (name) => {
  */
 const loadProjectConfig = () => {
   if (!fs.existsSync(projectConfig)) {
-    console.warn(
-      chalk.yellow(
-        'Project file',
-        projectConfig,
-        'does not exists, using default values instead!'
-      )
-    );
+    if (!global.loadProjectConfigWarningShowed) {
+      console.warn(
+        chalk.yellow(
+          '⚠️ Project file',
+          projectConfig,
+          'does not exists, using automatic default values instead!'
+        )
+      );
+      global.loadProjectConfigWarningShowed = true;
+    }
     return defaultProjectConfig.config;
   }
   return loadConfig(projectConfig);
